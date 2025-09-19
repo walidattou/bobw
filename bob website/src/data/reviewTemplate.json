@@ -1,0 +1,51 @@
+{
+  "userReviews": [
+    {
+      "id": "review-001",
+      "avatar": "A",
+      "name": "Alex Chen",
+      "review": "Fantastic deals and lightning-fast service! The loyalty program is great too. Save money while building an amazing game library.",
+      "time": "1 week ago",
+      "rating": 5,
+      "image": "/images/reviews/alex-review.jpg",
+      "verified": true,
+      "helpful": 12,
+      "totalReviews": 45
+    },
+    {
+      "id": "review-002",
+      "avatar": "M",
+      "name": "Maria Rodriguez",
+      "review": "Been using Instant Gaming for 2 years now. Never had any issues with keys or delivery. Customer support is responsive and helpful.",
+      "time": "3 days ago",
+      "rating": 5,
+      "image": "/images/reviews/maria-review.jpg",
+      "verified": true,
+      "helpful": 8,
+      "totalReviews": 23
+    }
+  ],
+  "gameReviews": [
+    {
+      "id": "game-review-001",
+      "title": "Cyberpunk 2077",
+      "image": "bg-gradient-to-br from-purple-600 to-blue-600",
+      "price": "$29.99",
+      "discount": "-50%",
+      "rating": 4,
+      "review": "Amazing game with incredible graphics and story. The recent updates have fixed most of the launch issues. Highly recommended!",
+      "likes": 156,
+      "verified": true,
+      "reviewer": {
+        "name": "GamerPro2024",
+        "avatar": "G",
+        "totalReviews": 234
+      },
+      "gameInfo": {
+        "platform": "PC",
+        "genre": "RPG",
+        "releaseDate": "2020-12-10"
+      }
+    }
+  ]
+}
