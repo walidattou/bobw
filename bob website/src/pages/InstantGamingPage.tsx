@@ -11,7 +11,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "51.99 €",
       discount: "-80%",
-      image: "/api/placeholder/300/400",
+      image: "/games and offers images/netflix.webp",
       bgColor: "bg-red-600"
     },
     {
@@ -19,7 +19,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "9.99 €",
       discount: "-50%",
-      image: "/api/placeholder/300/400",
+      image: "/games and offers images/pubg-battlegrounds-19vwb.webp",
       bgColor: "bg-blue-600"
     },
     {
@@ -134,7 +134,15 @@ const GamingMarketplace: React.FC = () => {
                 <div className={`relative h-36 ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-16 bg-black/40 rounded"></div>
+                    {index <= 1 ? (
+                      <img 
+                        src={game.image} 
+                        alt={game.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-16 bg-black/40 rounded"></div>
+                    )}
                 </div>
                 {game.discount && (
                     <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded shadow-lg shadow-red-500/50">
