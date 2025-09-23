@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Review, GameReview } from '../types/Review';
+import type { Review, GameReview } from '../types/Review';
 import { validateImageFile, generateImageUrl, generateAvatarFromName, formatReviewTime } from '../utils/reviewUtils';
 
 interface ReviewManagerProps {
   onAddReview: (review: Review | GameReview) => void;
-  onUpdateReview: (id: string, review: Partial<Review | GameReview>) => void;
-  onDeleteReview: (id: string) => void;
 }
 
-const ReviewManager: React.FC<ReviewManagerProps> = ({ onAddReview, onUpdateReview, onDeleteReview }) => {
+const ReviewManager: React.FC<ReviewManagerProps> = ({ onAddReview }) => {
   const [isAddingReview, setIsAddingReview] = useState(false);
   const [reviewType, setReviewType] = useState<'user' | 'game'>('user');
   const [formData, setFormData] = useState({

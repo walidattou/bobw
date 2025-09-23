@@ -1,4 +1,4 @@
-import { Review, GameReview } from '../types/Review';
+import type { Review, GameReview } from '../types/Review';
 
 // Image upload and management utilities
 export const validateImageFile = (file: File): { valid: boolean; error?: string } => {
