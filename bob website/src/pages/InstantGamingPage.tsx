@@ -289,10 +289,10 @@ const GamingMarketplace: React.FC = () => {
       <section className="relative overflow-hidden">
         <div className="relative h-64 sm:h-80 lg:h-96">
           {/* Background image that scales properly on all devices */}
-          <div 
+        <div 
             className="hero-background absolute inset-0 w-full h-full"
-            style={{
-              backgroundImage: 'url("/reviews images/image.jpg")',
+          style={{
+              backgroundImage: 'url("/website core iamges/paisaje-de-god-of-war-ragnarok-8580.jpg")',
               clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
               minHeight: '100%',
               minWidth: '100%'
@@ -511,21 +511,21 @@ const GamingMarketplace: React.FC = () => {
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        {review.image ? (
-                          <img 
-                            src={review.image} 
-                            alt={review.name}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        ) : (
+                    {review.image ? (
+                      <img 
+                        src={review.image} 
+                        alt={review.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
                           <div className={`w-full h-full bg-gradient-to-r ${review.avatarGradient || 'from-cyan-400 to-cyan-600'} flex items-center justify-center text-white font-bold text-lg`}>
-                            {review.avatar}
-                          </div>
-                        )}
+                    {review.avatar}
+                      </div>
+                    )}
                       </motion.div>
-                      <div className="ml-4 flex-1">
+                  <div className="ml-4 flex-1">
                         <motion.h4 
                           className="font-bold text-white"
                           initial={{ y: 10, opacity: 0 }}
@@ -542,14 +542,14 @@ const GamingMarketplace: React.FC = () => {
                         >
                           {review.totalReviews} reviews
                         </motion.p>
-                      </div>
+                  </div>
                       <motion.div 
                         className="flex space-x-1"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: index * 0.1 + 0.5, type: "spring" }}
                       >
-                        {[1, 2, 3, 4, 5].map((star) => (
+                    {[1, 2, 3, 4, 5].map((star) => (
                           <motion.div
                             key={star}
                             initial={{ scale: 0, rotate: -180 }}
