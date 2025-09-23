@@ -1,92 +1,255 @@
-import React from 'react';
-import { Star, Download, Shield, Headphones } from 'lucide-react';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 import { userReviews } from '../data/reviewsDatabase';
 
 const GamingMarketplace: React.FC = () => {
-  const gameCards = [
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>('all');
+
+  // Memoize FAQ toggle handler
+  const handleFAQToggle = useCallback((index: number) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  }, [openFAQ]);
+
+  // Memoize card hover handlers
+  const handleCardHover = useCallback((index: number | null) => {
+    setHoveredCard(index);
+  }, []);
+
+  // Memoize FAQ data to prevent re-creation on every render
+  const faqData = useMemo(() => [
     {
-      title: "Borderlands 3",
+      question: "What services does Bob Store offer?",
+      answer: "Bob Store is an online shop specializing in game recharges for PC and Android, streaming subscriptions (Shahid, Netflix), Discord subscriptions, Amazon Prime, and various digital services. We offer the cheapest prices in Algeria with guaranteed fast service."
+    },
+    {
+      question: "Do you provide game recharges for PC and Android?",
+      answer: "Yes! We provide game recharges for popular games like Roblox, Fortnite, and many others on both PC and Android platforms. We offer the most competitive prices in Algeria with instant delivery."
+    },
+    {
+      question: "What streaming subscriptions do you offer?",
+      answer: "We offer subscriptions for Shahid, Netflix, Amazon Prime, and other popular streaming services. All subscriptions come with a 100% guarantee and are delivered instantly to your account."
+    },
+    {
+      question: "How fast is your service delivery?",
+      answer: "We pride ourselves on fast service! Most orders are processed and delivered within minutes of payment confirmation. Our team works efficiently to ensure you get your digital products as quickly as possible."
+    },
+    {
+      question: "What are your business hours?",
+      answer: "We are available from 11:00 AM to 11:00 PM (11h-23h) every day. You can contact us during these hours for any inquiries or support needs."
+    },
+    {
+      question: "Do you offer Discord subscriptions?",
+      answer: "Yes! We offer Discord Nitro subscriptions for both your existing account or we can provide you with a new account. Choose the option that works best for you."
+    },
+    {
+      question: "Can I get Amazon Prime subscriptions?",
+      answer: "Absolutely! We provide Amazon Prime subscriptions that give you access to high-quality movies and series. Enjoy unlimited streaming with our guaranteed service."
+    },
+    {
+      question: "How can I contact Bob Store for support?",
+      answer: "You can reach us at bobstorebussiness@gmail.com or through our social media channels. We're available from 11h-23h and respond quickly to all inquiries."
+    },
+    {
+      question: "What payment methods do you accept?",
+      answer: "We accept various payment methods including bank transfers, mobile payments, and other local payment options. Contact us to discuss the best payment method for your location."
+    },
+    {
+      question: "Do you offer the cheapest prices in Algeria?",
+      answer: "Yes! We are committed to offering the most competitive prices in Algeria. Our prices are regularly updated to ensure you get the best deals on all our services."
+    }
+  ], []);
+
+  // Memoize game cards data to prevent re-creation on every render
+  const gameCards = useMemo(() => [
+    {
+      title: "Netflix subscriptions",
       platform: "PC (Steam)",
       price: "51.99 €",
       discount: "-80%",
       image: "/games and offers images/netflix.webp",
-      bgColor: "bg-red-600"
+      bgColor: "bg-red-600",
+      category: "subscriptions"
     },
     {
-      title: "Realm of Dreams",
+      title: "Xbox game pass subscriptions",
       platform: "PC (Steam)",
       price: "9.99 €",
       discount: "-50%",
-      image: "/games and offers images/pubg-battlegrounds-19vwb.webp",
-      bgColor: "bg-blue-600"
+      image: "/games and offers images/xbox game pass.webp",
+      bgColor: "bg-blue-600",
+      category: "subscriptions"
     },
     {
-      title: "Voyagers of Nera",
+      title: "Prime video subscriptions",
       platform: "PC (Steam)",
       price: "16.59 €",
       discount: "-60%",
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-cyan-500"
+      image: "/games and offers images/prime video.webp",
+      bgColor: "bg-cyan-500",
+      category: "subscriptions"
     },
     {
-      title: "Down to City",
+      title: "Mobile legends",
       platform: "PC (Steam)",
       price: "17.99 €",
       discount: "-40%",
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-orange-500"
+      image: "/games and offers images/league.webp",
+      gifUrl: "/games and offers images/gifs/mobile-legends-game.gif",
+      bgColor: "bg-orange-500",
+      category: "pc-games"
     },
     {
-      title: "Silksong",
+      title: "Genshin impact",
       platform: "PC & Mac (Steam)",
       price: "17.99 €",
       discount: "-50%",
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-red-800"
+      image: "/games and offers images/Genshin-Impact-Logo.webp",
+      gifUrl: "/games and offers images/gifs/genshin impact.gif",
+      bgColor: "bg-red-800",
+      category: "pc-games"
     },
     {
-      title: "Rayman",
+      title: "PUBG mobile",
       platform: "PC (Steam)",
       price: "13.99 €",
       discount: null,
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-purple-600"
+      image: "/games and offers images/pubgmobile.webp",
+      gifUrl: "/games and offers images/gifs/pubggif.gif",
+      bgColor: "bg-purple-600",
+      category: "apps"
     },
     {
-      title: "Hell-US",
+      title: "Wuthering waves",
       platform: "PC (Steam)",
       price: "31.99 €",
       discount: "-20%",
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-gray-700"
+      image: "/games and offers images/wuthering waves - Copy.jpg",
+      gifUrl: "/games and offers images/gifs/wuthering-waves-jiyan.gif",
+      bgColor: "bg-gray-700",
+      category: "pc-games"
     },
     {
-      title: "IGNITE",
+      title: "Efootball",
       platform: "PC (Steam)",
       price: "23.39 €",
       discount: "-67%",
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-orange-600"
+      image: "/games and offers images/football.webp",
+      gifUrl: "/games and offers images/gifs/Efootball.gif",
+      bgColor: "bg-orange-600",
+      category: "pc-games"
     },
     {
-      title: "Planet Coaster 2: Scenery Pack",
+      title: "Clash of clans",
       platform: "PC (Epic)",
       price: "9.99 €",
       discount: "-67%",
-      image: "/api/placeholder/300/400",
-      bgColor: "bg-teal-600"
+      image: "/games and offers images/clashofclans.webp",
+      gifUrl: "/games and offers images/gifs/clash of clans.gif",
+      bgColor: "bg-teal-600",
+      category: "apps"
+    },
+    {
+      title: "Blood Strike",
+      platform: "Mobile",
+      price: "12.99 €",
+      discount: "-30%",
+      image: "/games and offers images/blood strike.webp",
+      gifUrl: "/games and offers images/gifs/blood strike.gif",
+      bgColor: "bg-red-700",
+      category: "apps"
+    },
+    {
+      title: "Discord Nitro",
+      platform: "PC & Mobile",
+      price: "4.99 €",
+      discount: "-25%",
+      image: "/games and offers images/Discord-Nitro.webp",
+      bgColor: "bg-indigo-600",
+      category: "subscriptions"
+    },
+    {
+      title: "Infinity Nikki",
+      platform: "PC & Mobile",
+      price: "19.99 €",
+      discount: "-40%",
+      image: "/games and offers images/infinity nikki.webp",
+      gifUrl: "/games and offers images/gifs/infinty nikki.gif",
+      bgColor: "bg-pink-600",
+      category: "apps"
+    },
+    {
+      title: "Roblox",
+      platform: "PC & Mobile",
+      price: "8.99 €",
+      discount: "-35%",
+      image: "/games and offers images/roblox.webp",
+      gifUrl: "/games and offers images/gifs/roblox.gif",
+      bgColor: "bg-green-600",
+      category: "apps"
+    },
+    {
+      title: "Free Fire",
+      platform: "Mobile",
+      price: "6.99 €",
+      discount: "-20%",
+      image: "/games and offers images/feefire.webp",
+      gifUrl: "/games and offers images/gifs/freefiregif.gif",
+      bgColor: "bg-yellow-600",
+      category: "apps"
+    },
+    {
+      title: "Fortnite",
+      platform: "PC & Mobile",
+      price: "15.99 €",
+      discount: "-45%",
+      image: "/games and offers images/fortnite.webp",
+      gifUrl: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExemd5aDc2am1tNmMxYWN3MWQ3cnI2NXo1eHgwbXdxZXJnaXZ1c201YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EMp5I4EfDhLNP8qbPv/giphy.gif",
+      bgColor: "bg-blue-700",
+      category: "pc-games"
     }
+  ], []);
+
+  // Filter games based on active filter
+  const filteredGames = useMemo(() => {
+    if (activeFilter === 'all') {
+      return gameCards;
+    }
+    return gameCards.filter(game => game.category === activeFilter);
+  }, [gameCards, activeFilter]);
+
+  // Filter options
+  const filterOptions = [
+    { id: 'all', label: 'All', count: gameCards.length },
+    { id: 'apps', label: 'Apps', count: gameCards.filter(game => game.category === 'apps').length },
+    { id: 'pc-games', label: 'PC Games', count: gameCards.filter(game => game.category === 'pc-games').length },
+    { id: 'subscriptions', label: 'Subscriptions', count: gameCards.filter(game => game.category === 'subscriptions').length }
   ];
 
   return (
     <div 
-      className="min-h-screen text-white"
+      className="min-h-screen text-white relative"
       style={{
-        background: 'linear-gradient(135deg, #111827 0%, #000000 50%, #1f2937 100%)'
+        backgroundImage: 'url("/website core iamges/paisaje-de-god-of-war-ragnarok-8580.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
       }}
     >
+      {/* Dark overlay to make the background darker */}
+      <div 
+        className="absolute inset-0 bg-black/70"
+        style={{
+          background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(31, 41, 55, 0.8) 100%)'
+        }}
+      ></div>
+      
+      {/* Content wrapper with relative positioning */}
+      <div className="relative z-10">
       <Navigation />
 
       {/* Hero Section with Sloped Design */}
@@ -98,15 +261,15 @@ const GamingMarketplace: React.FC = () => {
             clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
           }}
         >
-          <div className="max-w-7xl mx-auto px-6 py-16 flex items-center justify-center relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex items-center justify-center relative z-10">
             {/* Center - EA FC25 Logo and Text */}
             <div className="text-center">
               <div className="mb-4">
-                <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent drop-shadow-lg drop-shadow-cyan-500/50">EA</span>
-                <span className="text-4xl font-bold ml-2 drop-shadow-lg drop-shadow-cyan-500/30">FC25</span>
+                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent drop-shadow-lg drop-shadow-cyan-500/50">EA</span>
+                <span className="text-3xl sm:text-4xl font-bold ml-2 drop-shadow-lg drop-shadow-cyan-500/30">FC25</span>
               </div>
-              <h1 className="text-5xl font-bold mb-2">PAY LESS</h1>
-              <p className="text-xl text-gray-300">WITH PSN CARDS</p>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white">PAY LESS</h1>
+              <p className="text-lg sm:text-xl text-gray-300">WITH PSN CARDS</p>
             </div>
 
             {/* Stadium Background Effect */}
@@ -118,139 +281,121 @@ const GamingMarketplace: React.FC = () => {
       </section>
 
       {/* Main Content Container */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Trending Section */}
-        <div id="trending" className="flex items-center mb-8">
-          <h2 className="text-2xl font-bold">Trending</h2>
-          <span className="ml-2 text-gray-400">›</span>
+        <div id="trending" className="mb-6 sm:mb-8">
+          <div className="flex items-center mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold">Trending</h2>
+            <span className="ml-2 text-gray-400">›</span>
+          </div>
+          
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {filterOptions.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => setActiveFilter(option.id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                  activeFilter === option.id
+                    ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30'
+                    : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                }`}
+              >
+                <Filter className="w-4 h-4" />
+                {option.label}
+                <span className={`px-2 py-0.5 rounded-full text-xs ${
+                  activeFilter === option.id
+                    ? 'bg-white/20 text-white'
+                    : 'bg-gray-600/50 text-gray-400'
+                }`}>
+                  {option.count}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Game Grid */}
-        <div className="space-y-4 mb-12">
-          {/* Row 1 */}
-          <div className="flex gap-4">
-            {gameCards.slice(0, 3).map((game, index) => (
-              <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer flex-1 hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm">
-                <div className={`relative h-36 ${game.bgColor}`}>
+        {/* Responsive Game Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {filteredGames.map((game, index) => (
+            <div 
+              key={index} 
+              className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm"
+              onMouseEnter={() => handleCardHover(index)}
+              onMouseLeave={() => handleCardHover(null)}
+            >
+              <div className={`relative h-32 sm:h-36 ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                    {index <= 1 ? (
-                      <img 
-                        src={game.image} 
-                        alt={game.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-12 h-16 bg-black/40 rounded"></div>
-                    )}
-                </div>
-                {game.discount && (
-                    <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded shadow-lg shadow-red-500/50">
-                    {game.discount}
-                  </div>
-                )}
-              </div>
-                <div className="p-3 flex items-center justify-between">
-                  <h3 className="font-semibold text-sm text-white truncate">{game.title}</h3>
-                  <span className="text-sm font-bold text-white">{game.price}</span>
+                  <img 
+                    src={hoveredCard === index && game.gifUrl ? game.gifUrl : game.image} 
+                    alt={game.title}
+                    className="w-full h-full object-cover transition-all duration-300"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
-          
-          {/* Row 2 */}
-          <div className="flex gap-4">
-            {gameCards.slice(3, 6).map((game, index) => (
-              <div key={index + 3} className="bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-colors cursor-pointer flex-1">
-                <div className={`relative h-36 ${game.bgColor}`}>
-                  <div className="absolute inset-0 bg-black/20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-16 bg-black/40 rounded"></div>
-                  </div>
-                  {game.discount && (
-                    <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded shadow-lg shadow-red-500/50">
-                      {game.discount}
-                    </div>
-                  )}
-                </div>
-                <div className="p-3 flex items-center justify-between">
-                  <h3 className="font-semibold text-sm text-white truncate">{game.title}</h3>
-                  <span className="text-sm font-bold text-white">{game.price}</span>
+              <div className="p-3 flex items-center justify-between">
+                <h3 className="font-semibold text-sm text-white truncate">{game.title}</h3>
+                <a 
+                  href="/subscription_and_services" 
+                  className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                >
+                  See More
+                </a>
               </div>
             </div>
           ))}
-          </div>
-          
-          {/* Row 3 */}
-          <div className="flex gap-4">
-            {gameCards.slice(6, 9).map((game, index) => (
-              <div key={index + 6} className="bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-colors cursor-pointer flex-1">
-                <div className={`relative h-36 ${game.bgColor}`}>
-                  <div className="absolute inset-0 bg-black/20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-16 bg-black/40 rounded"></div>
-                  </div>
-                  {game.discount && (
-                    <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded shadow-lg shadow-red-500/50">
-                      {game.discount}
-                    </div>
-                  )}
-                </div>
-                <div className="p-3 flex items-center justify-between">
-                  <h3 className="font-semibold text-sm text-white truncate">{game.title}</h3>
-                  <span className="text-sm font-bold text-white">{game.price}</span>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Footer Features */}
-        <div className="bg-black/30 border border-gray-800/50 rounded-lg mb-12 backdrop-blur-sm">
-          <div className="flex items-center justify-between px-8 py-6">
+        <div className="bg-black/30 border border-gray-800/50 rounded-lg mb-8 sm:mb-12 backdrop-blur-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-8 py-6">
             {/* Super Fast */}
-            <div className="flex items-center space-x-3 border-r border-gray-700 pr-8">
-              <div className="text-red-500">
-                <Download className="w-8 h-8 drop-shadow-lg drop-shadow-red-500/50" />
+            <div className="flex items-center space-x-3 sm:border-r sm:border-gray-700 sm:pr-6">
+              <div className="text-red-500 flex-shrink-0">
+                <Download className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg drop-shadow-red-500/50" />
               </div>
-              <div>
-                <h3 className="font-bold text-white text-lg">Super fast</h3>
-                <p className="text-gray-400 text-sm">Instant digital download</p>
+              <div className="min-w-0">
+                <h3 className="font-bold text-white text-base sm:text-lg">Super fast</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">Instant digital download</p>
               </div>
             </div>
 
             {/* Reliable & Safe */}
-            <div className="flex items-center space-x-3 border-r border-gray-700 pr-8">
-              <div className="text-red-500">
-                <Shield className="w-8 h-8 drop-shadow-lg drop-shadow-red-500/50" />
+            <div className="flex items-center space-x-3 sm:border-r sm:border-gray-700 sm:pr-6">
+              <div className="text-red-500 flex-shrink-0">
+                <Shield className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg drop-shadow-red-500/50" />
               </div>
-              <div>
-                <h3 className="font-bold text-white text-lg">Reliable & safe</h3>
-                <p className="text-gray-400 text-sm">Over 20,000 games</p>
+              <div className="min-w-0">
+                <h3 className="font-bold text-white text-base sm:text-lg">Reliable & safe</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">Over 20,000 games</p>
               </div>
             </div>
 
             {/* Customer Support */}
-            <div className="flex items-center space-x-3 pr-8">
-              <div className="text-red-500">
-                <Headphones className="w-8 h-8 drop-shadow-lg drop-shadow-red-500/50" />
+            <div className="flex items-center space-x-3 sm:border-r sm:border-gray-700 sm:pr-6">
+              <div className="text-red-500 flex-shrink-0">
+                <Headphones className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg drop-shadow-red-500/50" />
               </div>
-              <div>
-                <h3 className="font-bold text-white text-lg">Customer support</h3>
-                <p className="text-gray-400 text-sm">Human support 24/7</p>
+              <div className="min-w-0">
+                <h3 className="font-bold text-white text-base sm:text-lg">Customer support</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">Human support 24/7</p>
               </div>
             </div>
 
             {/* Trustpilot */}
             <div className="flex items-center space-x-3">
-              <div className="text-green-500">
-                <Star className="w-8 h-8 fill-current" />
+              <div className="text-green-500 flex-shrink-0">
+                <Star className="w-6 h-6 sm:w-8 sm:h-8 fill-current" />
               </div>
-              <div>
-                <h3 className="font-bold text-green-500 text-lg">Trustpilot</h3>
+              <div className="min-w-0">
+                <h3 className="font-bold text-green-500 text-base sm:text-lg">Trustpilot</h3>
                 <div className="flex items-center space-x-1">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-3 h-3 fill-current text-green-400" />
+                    <Star key={star} className="w-2 h-2 sm:w-3 sm:h-3 fill-current text-green-400" />
                   ))}
                   <span className="text-xs text-gray-400 ml-1">777,543 reviews</span>
                 </div>
@@ -259,54 +404,29 @@ const GamingMarketplace: React.FC = () => {
           </div>
         </div>
 
-        {/* Pre-orders Section */}
-        <div className="mb-12">
-          <div className="flex items-center mb-8">
-            <h2 className="text-2xl font-bold">Coming soon</h2>
-            <span className="ml-2 text-gray-400">›</span>
-          </div>
-
-          {/* Coming Soon Grid */}
-          <div className="flex gap-4 mb-12">
-            {[...Array(3)].map((_, index) => (
-              <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer flex-1 hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm">
-                <div className="relative h-36 bg-gradient-to-br from-slate-600 to-slate-800">
-                  <div className="absolute inset-0 bg-black/40"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-gray-400 text-sm font-semibold">Coming Soon</span>
-                  </div>
-                </div>
-                <div className="p-3 flex items-center justify-between">
-                  <h3 className="font-semibold text-sm text-white truncate">Pre-order Game {index + 1}</h3>
-                  <span className="text-sm font-bold text-white">Pre-order</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Reviews Section */}
-        <div id="reviews" className="mb-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">What Our Gamers Say</h2>
+        <div id="reviews" className="mb-8 sm:mb-12">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">What Our Gamers Say</h2>
             <div className="flex justify-center items-center space-x-2 mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star key={star} className="w-6 h-6 fill-current text-yellow-400" />
               ))}
               <span className="text-xl font-bold ml-2">4.9/5</span>
             </div>
-            <p className="text-gray-400 text-lg">Based on 1,555,579 verified reviews</p>
+            <p className="text-gray-400 text-base sm:text-lg">Based on 1,555,579 verified reviews</p>
             <div className="mt-6">
-              <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transition-all transform">
+              <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transition-all transform text-sm sm:text-base">
                 Join 2M+ Happy Gamers
               </div>
             </div>
           </div>
 
           {/* Review Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {userReviews.slice(0, 6).map((review, index) => (
-              <div key={index} className="bg-black/40 rounded-xl p-6 hover:bg-black/60 transition-all duration-300 border-none hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 backdrop-blur-sm">
+              <div key={index} className="bg-black/40 rounded-xl p-4 sm:p-6 hover:bg-black/60 transition-all duration-300 border-none hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 backdrop-blur-sm">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg shadow-cyan-500/50">
                     {review.image ? (
@@ -314,6 +434,8 @@ const GamingMarketplace: React.FC = () => {
                         src={review.image} 
                         alt={review.name}
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-r from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-lg">
@@ -343,60 +465,65 @@ const GamingMarketplace: React.FC = () => {
       </main>
 
       {/* Featured Game Banner - Full Width */}
-      <div id="featured" className="relative overflow-hidden my-16">
+      <div id="featured" className="relative overflow-hidden my-8 sm:my-16">
         <div 
-          className="relative h-[28rem] bg-cover bg-center bg-no-repeat"
+          className="relative h-48 sm:h-64 md:h-80 lg:h-[28rem] bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: 'url("/website core iamges/borderlandsM.jpg")',
             clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
           }}
         >
-
-          
           {/* Decorative elements */}
-          <div className="absolute top-4 right-4 w-32 h-32 bg-red-500/10 rounded-full blur-xl"></div>
-          <div className="absolute bottom-8 left-8 w-24 h-24 bg-red-400/20 rounded-full blur-lg"></div>
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 w-16 h-16 sm:w-32 sm:h-32 bg-red-500/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 w-12 h-12 sm:w-24 sm:h-24 bg-red-400/20 rounded-full blur-lg"></div>
         </div>
       </div>
 
       {/* Gamer Reviews Section Title */}
-      <div id="game-reviews" className="max-w-7xl mx-auto px-6 py-8">
-        <div className="flex items-center mb-8">
-          <h2 className="text-2xl font-bold">Gamer reviews</h2>
+      <div id="game-reviews" className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="flex items-center mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold">Gamer reviews</h2>
           <span className="ml-2 text-gray-400">›</span>
         </div>
 
-        {/* Game Review Cards - Flex Layout */}
-        <div className="flex gap-4 mb-16">
-          {[
+        {/* Game Review Cards - Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+          {useMemo(() => [
             {
-              title: "HELLDIVERS",
-              image: "bg-gradient-to-br from-yellow-600 via-orange-500 to-red-600",
-              user: "Commander Jake",
-              review: "I was looking for just this type of game. It's really fun to play, but sometimes it can annoying. But what great coop!",
-              likes: 15,
+              title: "Genshin Impact",
+              image: "/games and offers images/Genshin-Impact-Logo.webp",
+              user: "TravelerPro",
+              review: "Amazing open-world RPG with stunning visuals and engaging combat. The gacha system can be expensive but the free content is substantial. Love exploring Teyvat!",
+              likes: 47,
               verified: true
             },
             {
-              title: "The SIMS 3",
-              image: "bg-gradient-to-br from-green-400 to-blue-500",
-              user: "SimMaster2024",
-              review: "Wouldn't let me save my game. Then I uninstalled and downloaded a few more. Says I need to buy it to play.",
-              likes: 8,
-              verified: false
+              title: "PUBG Mobile",
+              image: "/games and offers images/pubgmobile.webp",
+              user: "BattleRoyaleKing",
+              review: "Best mobile battle royale game out there! Graphics are incredible and the gameplay is smooth. Perfect for quick matches during breaks.",
+              likes: 32,
+              verified: true
             },
             {
-              title: "Monster Supercross 3",
-              image: "bg-gradient-to-br from-blue-600 via-purple-600 to-red-500",
-              user: "RacerPro",
-              review: "Great game, it's not bad great graphics. You have to practice to understand how to jump and land in the right place.",
-              likes: 23,
+              title: "Wuthering Waves",
+              image: "/games and offers images/wuthering waves - Copy.jpg",
+              user: "WaveRider",
+              review: "Incredible action RPG with fluid combat mechanics. The character designs are beautiful and the story is engaging. Highly recommend for anime game fans!",
+              likes: 28,
               verified: true
             }
-          ].map((gameReview, index) => (
+          ], []).map((gameReview, index) => (
             <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 flex-1 backdrop-blur-sm">
               {/* Game Image Header */}
-              <div className={`relative h-36 ${gameReview.image} flex items-end p-3`}>
+              <div className="relative h-36 bg-gray-800 flex items-end p-3">
+                <img 
+                  src={gameReview.image} 
+                  alt={gameReview.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="relative z-10">
                   <h3 className="text-white font-bold text-lg">{gameReview.title}</h3>
@@ -440,26 +567,33 @@ const GamingMarketplace: React.FC = () => {
       </div>
 
       {/* FAQs Section */}
-      <div id="faq" className="bg-black/20 py-16 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">FAQs</h2>
+      <div id="faq" className="bg-black/20 py-8 sm:py-16 backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">FAQs</h2>
           
-          <div className="space-y-4">
-            {[
-              "What is Instant Gaming and how does it work?",
-              "What kind of products can I buy on Instant Gaming?",
-              "Why is Instant Gaming not a marketplace?",
-              "Does Instant Gaming also sell Video Games DLC, Gift Card and Subscriptions?",
-              "How does Instant Gaming offer such low prices?",
-              "What payment methods can I use to buy on Instant Gaming?",
-              "Is Instant Gaming a legitimate and trustworthy website?",
-              "How and when can I contact Instant Gaming?"
-            ].map((question, index) => (
-              <div key={index} className="bg-black/40 rounded-lg p-5 hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm">
+          <div className="space-y-3 sm:space-y-4">
+            {faqData.map((faq, index) => (
+              <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm">
+                <div 
+                  className="p-4 sm:p-5 cursor-pointer"
+                  onClick={() => handleFAQToggle(index)}
+                >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-white font-medium text-lg">{question}</h3>
-                  <span className="text-gray-400 text-xl">›</span>
+                    <h3 className="text-white font-medium text-base sm:text-lg pr-4">{faq.question}</h3>
+                    <ChevronDown 
+                      className={`text-gray-400 text-lg sm:text-xl transition-transform duration-300 flex-shrink-0 ${
+                        openFAQ === index ? 'rotate-180' : ''
+                      }`} 
+                    />
+                  </div>
                 </div>
+                {openFAQ === index && (
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5">
+                    <div className="border-t border-gray-700 pt-3 sm:pt-4">
+                      <p className="text-gray-300 leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -467,28 +601,26 @@ const GamingMarketplace: React.FC = () => {
       </div>
 
       {/* Newsletter Section */}
-      <div id="newsletter" className="bg-black/20 py-12 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="flex items-center space-x-8">
-            <div className="text-cyan-500">
-              <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+      <div id="newsletter" className="bg-black/20 py-8 sm:py-12 backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-8">
+            <div className="text-cyan-500 flex-shrink-0">
+              <svg className="w-12 h-12 sm:w-16 sm:h-16" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z"/>
               </svg>
             </div>
-            <div className="flex-1">
-              <h3 className="text-2xl font-bold text-white mb-2">Don't miss any offers and promotions!</h3>
-              <p className="text-gray-400">
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Don't miss any offers and promotions!</h3>
+              <p className="text-gray-400 text-sm sm:text-base">
                 And be the first to receive our private offers, newsletters and deals of the week
               </p>
             </div>
-            <button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transform">
-              Sign Up!
-            </button>
           </div>
         </div>
       </div>
 
       <Footer />
+      </div>
     </div>
   );
 };

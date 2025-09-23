@@ -3,9 +3,9 @@ import { Star } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black/30 border-t border-gray-800/50 py-12 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-4 gap-8">
+    <footer className="bg-black/30 border-t border-gray-800/50 py-8 sm:py-12 backdrop-blur-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Column 1 - Trustpilot */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
@@ -124,23 +124,25 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8 flex items-center justify-between text-sm">
-          <p className="text-gray-400">Copyright © 2025 Instant Gaming - All rights reserved</p>
-          
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">🌍</span>
+        <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-sm space-y-4 sm:space-y-0">
+            <p className="text-gray-400 text-center sm:text-left">Copyright © 2025 Instant Gaming - All rights reserved</p>
+            
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 sm:gap-6">
+              <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs">🌍</span>
+                </div>
+                <span className="text-gray-400">Aland Islands</span>
               </div>
-              <span className="text-gray-400">Aland Islands</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-400">🗣️</span>
-              <span className="text-gray-400">English</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-400">💰</span>
-              <span className="text-gray-400">EUR</span>
+              <div className="flex items-center space-x-2">
+                <span className="text-gray-400">🗣️</span>
+                <span className="text-gray-400">English</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-gray-400">💰</span>
+                <span className="text-gray-400">EUR</span>
+              </div>
             </div>
           </div>
         </div>
