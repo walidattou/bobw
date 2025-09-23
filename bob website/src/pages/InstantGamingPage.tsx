@@ -285,20 +285,18 @@ const GamingMarketplace: React.FC = () => {
       <div className="relative z-10">
       <Navigation />
 
-      {/* Hero Section with Image Background */}
+      {/* Hero Section with Responsive Background Image */}
       <section className="relative overflow-hidden">
         <div className="relative h-64 sm:h-80 lg:h-96">
-          {/* Mobile-optimized image */}
-          <img
-            src="/reviews images/image.jpg"
-            alt="Hero Background"
-            className="absolute inset-0 w-full h-full object-cover object-top"
+          {/* Background image that scales properly on all devices */}
+          <div 
+            className="hero-background absolute inset-0 w-full h-full"
             style={{
+              backgroundImage: 'url("/reviews images/image.jpg")',
               clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
-              imageRendering: 'auto'
+              minHeight: '100%',
+              minWidth: '100%'
             }}
-            loading="eager"
-            decoding="sync"
           />
           {/* Dark overlay for better text readability if needed */}
           <div className="absolute inset-0 bg-black/20" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}></div>

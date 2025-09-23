@@ -6,3 +6,25 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Mobile background image optimization */
+@media (max-width: 768px) {
+  .hero-background {
+    background-size: cover !important;
+    background-position: center top !important;
+    background-attachment: scroll !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+  }
+}
+
+/* Ensure proper scaling on all devices */
+.hero-background {
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
