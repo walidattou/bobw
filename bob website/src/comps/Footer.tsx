@@ -33,22 +33,7 @@ const Footer: React.FC = () => {
           {/* Column 3 - Services Links */}
           <div>
             <ul className="space-y-3">
-              <li className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-sm shadow-lg shadow-red-500/50"></div>
-                <a href="#" className="text-gray-300 hover:text-white text-sm">Our Discord Bot</a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-sm shadow-lg shadow-red-500/50"></div>
-                <a href="#" className="text-gray-300 hover:text-white text-sm">Redeem a Gift Card</a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-sm shadow-lg shadow-red-500/50"></div>
-                <a href="#" className="text-gray-300 hover:text-white text-sm">Blog</a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-sm shadow-lg shadow-red-500/50"></div>
-                <a href="#" className="text-gray-300 hover:text-white text-sm">Find the latest video game news</a>
-              </li>
+              {/* Services links removed as requested */}
             </ul>
           </div>
 

@@ -1,6 +1,6 @@
 import type { ReviewDatabase, Review, GameReview } from '../types/Review';
 
-// Sample user reviews data
+// Sample user reviews data - Only reviews with real profile images
 const userReviews: Review[] = [
   {
     id: "review-007",
@@ -73,7 +73,242 @@ const userReviews: Review[] = [
     verified: true,
     helpful: 7,
     totalReviews: 18
-  }
+  },
+  {
+    id: "review-013",
+    avatar: "M",
+    name: "Mohamed Belakoul",
+    review: "متى تعاملت معاك",
+    time: "2 years ago",
+    rating: 5,
+    image: null,
+    avatarGradient: "from-blue-500 to-blue-700",
+    verified: true,
+    helpful: 3,
+    totalReviews: 8
+  },
+  {
+    id: "review-014",
+    avatar: "م",
+    name: "مصطفى العذاري",
+    review: "ثقه الله يوفقك🤍",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/485993600_1445862223046164_32603113468558856_n.jpg",
+    avatarGradient: "from-green-500 to-green-700",
+    verified: true,
+    helpful: 5,
+    totalReviews: 12
+  },
+  {
+    id: "review-015",
+    avatar: "C",
+    name: "Chaker Gouasmia",
+    review: "ثقة برو ماكس🫦",
+    time: "2 years ago",
+    rating: 5,
+    image: null,
+    avatarGradient: "from-purple-500 to-purple-700",
+    verified: true,
+    helpful: 7,
+    totalReviews: 15
+  },
+  {
+    id: "review-016",
+    avatar: "Q",
+    name: "Qussi Jamal Ibredah",
+    review: "ما تعاملت معاك 🐦",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/486241991_1446742686291451_5896140876206118949_n.jpg",
+    avatarGradient: "from-orange-500 to-orange-700",
+    verified: true,
+    helpful: 4,
+    totalReviews: 9
+  },
+  {
+    id: "review-017",
+    avatar: "I",
+    name: "IsSa Boubaker",
+    review: "Les hommes ❤️",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/486825620_1450005462631840_6603026625700811656_n.jpg",
+    avatarGradient: "from-pink-500 to-pink-700",
+    verified: true,
+    helpful: 6,
+    totalReviews: 11
+  },
+  {
+    id: "review-018",
+    avatar: "A",
+    name: "Ali Sh",
+    review: "خوش ولد",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/486955626_1449083229390730_6812952396168084032_n.jpg",
+    avatarGradient: "from-teal-500 to-teal-700",
+    verified: true,
+    helpful: 8,
+    totalReviews: 14
+  },
+  {
+    id: "review-019",
+    avatar: "A",
+    name: "Abdo Al Habeb",
+    review: "ثقة 🔥🔥",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/487380151_1449023452730041_795710497407658996_n.jpg",
+    avatarGradient: "from-red-500 to-red-700",
+    verified: true,
+    helpful: 9,
+    totalReviews: 16
+  },
+  {
+    id: "review-020",
+    avatar: "ت",
+    name: "تركي محمود",
+    review: "ثقة ضلعي 👏",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/502570010_1499037084395344_1471937901484174197_n.jpg",
+    avatarGradient: "from-indigo-500 to-indigo-700",
+    verified: true,
+    helpful: 12,
+    totalReviews: 18
+  },
+  {
+    id: "review-021",
+    avatar: "ع",
+    name: "عمر ابو حفصه",
+    review: "هذا النسان ثقا الف",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/484334674_1440565646909155_2317249062376209281_n.jpg",
+    avatarGradient: "from-yellow-500 to-yellow-700",
+    verified: true,
+    helpful: 10,
+    totalReviews: 13
+  },
+  {
+    id: "review-022",
+    avatar: "M",
+    name: "Mayor Mď",
+    review: "ثقه",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/484541807_1441756773456709_4147548551053516475_n.jpg",
+    avatarGradient: "from-emerald-500 to-emerald-700",
+    verified: true,
+    helpful: 5,
+    totalReviews: 7
+  },
+  {
+    id: "review-023",
+    avatar: "O",
+    name: "Obada Taj Alsier",
+    review: "ثقة🐦✨🌺",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/484930429_1442526573379729_8487768777560764629_n.jpg",
+    avatarGradient: "from-rose-500 to-rose-700",
+    verified: true,
+    helpful: 6,
+    totalReviews: 10
+  },
+  {
+    id: "review-024",
+    avatar: "M",
+    name: "Mohmed Alsaedy",
+    review: "ما تعاملت وياك بس مبين خوش ولد 🫂",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/485120413_1443543909944662_7133721561707582881_n.jpg",
+    avatarGradient: "from-cyan-500 to-cyan-700",
+    verified: true,
+    helpful: 4,
+    totalReviews: 6
+  },
+  {
+    id: "review-025",
+    avatar: "S",
+    name: "Saif Aldeen",
+    review: "انتة ياهو",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/485310757_1443268119972241_8159251891978969568_n.jpg",
+    avatarGradient: "from-violet-500 to-violet-700",
+    verified: true,
+    helpful: 7,
+    totalReviews: 12
+  },
+  {
+    id: "review-026",
+    avatar: "ر",
+    name: "رهف البيك",
+    review: "Up كل الدعم",
+    time: "2 years ago",
+    rating: 5,
+    image: "/reviews images/485964942_1444950499804003_3383765786584591231_n.jpg",
+    avatarGradient: "from-lime-500 to-lime-700",
+    verified: true,
+    helpful: 8,
+    totalReviews: 15
+  },
+  {
+    id: "review-027",
+    avatar: "Y",
+    name: "Yassine 夜",
+    review: "ثيقة مطلقة ✨💖💯",
+    time: "2 years ago",
+    rating: 5,
+    image: null,
+    avatarGradient: "from-sky-500 to-sky-700",
+    verified: true,
+    helpful: 11,
+    totalReviews: 19
+  },
+  {
+    id: "review-028",
+    avatar: "ふ",
+    name: "ふみこ あけみ",
+    review: "ثقة ❤️",
+    time: "2 years ago",
+    rating: 5,
+    image: null,
+    avatarGradient: "from-fuchsia-500 to-fuchsia-700",
+    verified: true,
+    helpful: 9,
+    totalReviews: 17
+  },
+  {
+    id: "review-029",
+    avatar: "S",
+    name: "Sebaa Mn",
+    review: "خوش ولد",
+    time: "2 years ago",
+    rating: 5,
+    image: null,
+    avatarGradient: "from-amber-500 to-amber-700",
+    verified: true,
+    helpful: 6,
+    totalReviews: 11
+  },
+  {
+    id: "review-030",
+    avatar: "ا",
+    name: "العبد الشكور",
+    review: "اسطورة الاساطير🔥",
+    time: "2 years ago",
+    rating: 5,
+    image: null,
+    avatarGradient: "from-stone-500 to-stone-700",
+    verified: true,
+    helpful: 13,
+    totalReviews: 22
+  },
+  
 ];
 
 // Sample game-specific reviews

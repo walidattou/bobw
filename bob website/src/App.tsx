@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import Mainpage from "./pages/InstantGamingPage";
 import ServicesPage from "./pages/ServicesPage";
+import GamePage from "./pages/GamePage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -19,6 +20,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Mainpage />} />
         <Route path="/subscription_and_services" element={<ServicesPage />} />
+        <Route path="/game/:gameId" element={<GamePage />} />
       </Routes>
     </>
   );

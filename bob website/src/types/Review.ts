@@ -5,7 +5,8 @@ export interface Review {
   review: string;
   time: string;
   rating: number;
-  image?: string; // Optional image URL for the review
+  image?: string | null; // Optional image URL for the review
+  avatarGradient?: string; // Optional gradient for generated avatars
   gameTitle?: string; // Optional game title if review is game-specific
   platform?: string; // Optional platform (PC, PlayStation, Xbox, etc.)
   verified?: boolean; // Whether the review is verified

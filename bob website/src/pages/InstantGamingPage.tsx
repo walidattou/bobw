@@ -1,5 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 import { userReviews } from '../data/reviewsDatabase';
@@ -8,6 +10,8 @@ const GamingMarketplace: React.FC = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [reviewStartIndex, setReviewStartIndex] = useState(0);
+  const [animationKey, setAnimationKey] = useState(0);
 
   // Memoize FAQ toggle handler
   const handleFAQToggle = useCallback((index: number) => {
@@ -17,6 +21,20 @@ const GamingMarketplace: React.FC = () => {
   // Memoize card hover handlers
   const handleCardHover = useCallback((index: number | null) => {
     setHoveredCard(index);
+  }, []);
+
+  // Auto-switch reviews every 10 seconds with cool animations
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReviewStartIndex((prevIndex) => {
+        // Move to next set of 6 reviews, cycling back to start when we reach the end
+        const nextIndex = prevIndex + 6;
+        return nextIndex >= userReviews.length ? 0 : nextIndex;
+      });
+      setAnimationKey(prev => prev + 1); // Trigger animation
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   // Memoize FAQ data to prevent re-creation on every render
@@ -66,6 +84,7 @@ const GamingMarketplace: React.FC = () => {
   // Memoize game cards data to prevent re-creation on every render
   const gameCards = useMemo(() => [
     {
+      id: "netflix",
       title: "Netflix subscriptions",
       platform: "PC (Steam)",
       price: "51.99 €",
@@ -75,6 +94,7 @@ const GamingMarketplace: React.FC = () => {
       category: "subscriptions"
     },
     {
+      id: "xbox-game-pass",
       title: "Xbox game pass subscriptions",
       platform: "PC (Steam)",
       price: "9.99 €",
@@ -84,6 +104,7 @@ const GamingMarketplace: React.FC = () => {
       category: "subscriptions"
     },
     {
+      id: "prime-video",
       title: "Prime video subscriptions",
       platform: "PC (Steam)",
       price: "16.59 €",
@@ -93,6 +114,7 @@ const GamingMarketplace: React.FC = () => {
       category: "subscriptions"
     },
     {
+      id: "mobile-legends",
       title: "Mobile legends",
       platform: "PC (Steam)",
       price: "17.99 €",
@@ -103,6 +125,7 @@ const GamingMarketplace: React.FC = () => {
       category: "pc-games"
     },
     {
+      id: "genshin-impact",
       title: "Genshin impact",
       platform: "PC & Mac (Steam)",
       price: "17.99 €",
@@ -113,6 +136,7 @@ const GamingMarketplace: React.FC = () => {
       category: "pc-games"
     },
     {
+      id: "pubg-mobile",
       title: "PUBG mobile",
       platform: "PC (Steam)",
       price: "13.99 €",
@@ -123,6 +147,7 @@ const GamingMarketplace: React.FC = () => {
       category: "apps"
     },
     {
+      id: "wuthering-waves",
       title: "Wuthering waves",
       platform: "PC (Steam)",
       price: "31.99 €",
@@ -133,6 +158,7 @@ const GamingMarketplace: React.FC = () => {
       category: "pc-games"
     },
     {
+      id: "efootball",
       title: "Efootball",
       platform: "PC (Steam)",
       price: "23.39 €",
@@ -143,6 +169,7 @@ const GamingMarketplace: React.FC = () => {
       category: "pc-games"
     },
     {
+      id: "clash-of-clans",
       title: "Clash of clans",
       platform: "PC (Epic)",
       price: "9.99 €",
@@ -153,6 +180,7 @@ const GamingMarketplace: React.FC = () => {
       category: "apps"
     },
     {
+      id: "blood-strike",
       title: "Blood Strike",
       platform: "Mobile",
       price: "12.99 €",
@@ -163,6 +191,7 @@ const GamingMarketplace: React.FC = () => {
       category: "apps"
     },
     {
+      id: "discord-nitro",
       title: "Discord Nitro",
       platform: "PC & Mobile",
       price: "4.99 €",
@@ -172,6 +201,7 @@ const GamingMarketplace: React.FC = () => {
       category: "subscriptions"
     },
     {
+      id: "infinity-nikki",
       title: "Infinity Nikki",
       platform: "PC & Mobile",
       price: "19.99 €",
@@ -182,6 +212,7 @@ const GamingMarketplace: React.FC = () => {
       category: "apps"
     },
     {
+      id: "roblox",
       title: "Roblox",
       platform: "PC & Mobile",
       price: "8.99 €",
@@ -192,6 +223,7 @@ const GamingMarketplace: React.FC = () => {
       category: "apps"
     },
     {
+      id: "free-fire",
       title: "Free Fire",
       platform: "Mobile",
       price: "6.99 €",
@@ -202,6 +234,7 @@ const GamingMarketplace: React.FC = () => {
       category: "apps"
     },
     {
+      id: "fortnite",
       title: "Fortnite",
       platform: "PC & Mobile",
       price: "15.99 €",
@@ -252,31 +285,23 @@ const GamingMarketplace: React.FC = () => {
       <div className="relative z-10">
       <Navigation />
 
-      {/* Hero Section with Sloped Design */}
+      {/* Hero Section with Image Background */}
       <section className="relative overflow-hidden">
-        <div 
-          className="bg-gradient-to-r from-gray-900 via-black to-gray-800 relative"
-          style={{
-            background: 'linear-gradient(135deg, #111827 0%, #000000 50%, #1f2937 100%)',
-            clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex items-center justify-center relative z-10">
-            {/* Center - EA FC25 Logo and Text */}
-            <div className="text-center">
-              <div className="mb-4">
-                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent drop-shadow-lg drop-shadow-cyan-500/50">EA</span>
-                <span className="text-3xl sm:text-4xl font-bold ml-2 drop-shadow-lg drop-shadow-cyan-500/30">FC25</span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white">PAY LESS</h1>
-              <p className="text-lg sm:text-xl text-gray-300">WITH PSN CARDS</p>
-            </div>
-
-            {/* Stadium Background Effect */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="w-full h-full bg-gradient-to-r from-transparent via-gray-900/30 to-red-900/30"></div>
-            </div>
-          </div>
+        <div className="relative h-64 sm:h-80 lg:h-96">
+          {/* Mobile-optimized image */}
+          <img
+            src="/reviews images/image.jpg"
+            alt="Hero Background"
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
+              imageRendering: 'auto'
+            }}
+            loading="eager"
+            decoding="sync"
+          />
+          {/* Dark overlay for better text readability if needed */}
+          <div className="absolute inset-0 bg-black/20" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}></div>
         </div>
       </section>
 
@@ -319,13 +344,14 @@ const GamingMarketplace: React.FC = () => {
         {/* Responsive Game Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {filteredGames.map((game, index) => (
-            <div 
+            <Link 
               key={index} 
-              className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm"
+              to={`/game/${game.id}`}
+              className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm block"
               onMouseEnter={() => handleCardHover(index)}
               onMouseLeave={() => handleCardHover(null)}
             >
-              <div className={`relative h-32 sm:h-36 ${game.bgColor}`}>
+              <div className={`relative aspect-[5/3] ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img 
@@ -339,14 +365,11 @@ const GamingMarketplace: React.FC = () => {
               </div>
               <div className="p-3 flex items-center justify-between">
                 <h3 className="font-semibold text-sm text-white truncate">{game.title}</h3>
-                <a 
-                  href="/subscription_and_services" 
-                  className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
+                <span className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
                   See More
-                </a>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -406,8 +429,8 @@ const GamingMarketplace: React.FC = () => {
 
 
         {/* Reviews Section */}
-        <div id="reviews" className="mb-8 sm:mb-12">
-          <div className="text-center mb-8 sm:mb-12">
+        <div id="reviews" className="mb-4 sm:mb-6">
+          <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">What Our Gamers Say</h2>
             <div className="flex justify-center items-center space-x-2 mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
@@ -415,7 +438,6 @@ const GamingMarketplace: React.FC = () => {
               ))}
               <span className="text-xl font-bold ml-2">4.9/5</span>
             </div>
-            <p className="text-gray-400 text-base sm:text-lg">Based on 1,555,579 verified reviews</p>
             <div className="mt-6">
               <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transition-all transform text-sm sm:text-base">
                 Join 2M+ Happy Gamers
@@ -423,43 +445,159 @@ const GamingMarketplace: React.FC = () => {
             </div>
           </div>
 
-          {/* Review Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {userReviews.slice(0, 6).map((review, index) => (
-              <div key={index} className="bg-black/40 rounded-xl p-4 sm:p-6 hover:bg-black/60 transition-all duration-300 border-none hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 backdrop-blur-sm">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg shadow-cyan-500/50">
-                    {review.image ? (
-                      <img 
-                        src={review.image} 
-                        alt={review.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-r from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-lg">
-                    {review.avatar}
+          {/* Review Cards with Cool Animations */}
+          <div className="relative min-h-[400px] overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={animationKey}
+                initial={{ 
+                  opacity: 0, 
+                  scale: 0.8,
+                  rotateX: -15,
+                  y: 50
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  rotateX: 0,
+                  y: 0
+                }}
+                exit={{ 
+                  opacity: 0, 
+                  scale: 0.8,
+                  rotateX: 15,
+                  y: -50
+                }}
+                transition={{ 
+                  duration: 0.8,
+                  ease: [0.4, 0.0, 0.2, 1],
+                  staggerChildren: 0.1
+                }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+              >
+                {userReviews.slice(reviewStartIndex, reviewStartIndex + 6).map((review, index) => (
+                  <motion.div
+                    key={`${reviewStartIndex}-${index}`}
+                    initial={{ 
+                      opacity: 0, 
+                      y: 30,
+                      scale: 0.9,
+                      rotateY: -10
+                    }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      scale: 1,
+                      rotateY: 0
+                    }}
+                    transition={{ 
+                      duration: 0.6,
+                      delay: index * 0.1,
+                      ease: "easeOut"
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      rotateY: 5,
+                      boxShadow: "0 20px 40px rgba(6, 182, 212, 0.3)"
+                    }}
+                    className="bg-black/40 rounded-xl p-4 sm:p-6 hover:bg-black/60 transition-all duration-300 border-none hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 backdrop-blur-sm min-h-[200px] flex flex-col cursor-pointer"
+                  >
+                    <motion.div 
+                      className="flex items-center mb-4"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.2 }}
+                    >
+                      <motion.div 
+                        className="w-12 h-12 rounded-full overflow-hidden shadow-lg shadow-cyan-500/50"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        {review.image ? (
+                          <img 
+                            src={review.image} 
+                            alt={review.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <div className={`w-full h-full bg-gradient-to-r ${review.avatarGradient || 'from-cyan-400 to-cyan-600'} flex items-center justify-center text-white font-bold text-lg`}>
+                            {review.avatar}
+                          </div>
+                        )}
+                      </motion.div>
+                      <div className="ml-4 flex-1">
+                        <motion.h4 
+                          className="font-bold text-white"
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: index * 0.1 + 0.3 }}
+                        >
+                          {review.name}
+                        </motion.h4>
+                        <motion.p 
+                          className="text-gray-400 text-sm"
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: index * 0.1 + 0.4 }}
+                        >
+                          {review.totalReviews} reviews
+                        </motion.p>
                       </div>
-                    )}
-                  </div>
-                  <div className="ml-4 flex-1">
-                    <h4 className="font-bold text-white">{review.name}</h4>
-                    <p className="text-gray-400 text-sm">{review.totalReviews} reviews</p>
-                  </div>
-                  <div className="flex space-x-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className={`w-4 h-4 ${star <= review.rating ? 'fill-current text-yellow-400' : 'text-gray-600'}`} />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-gray-300 mb-4 leading-relaxed">{review.review}</p>
-                <div className="flex justify-between items-center text-xs text-gray-500">
-                  <span>{review.helpful} helpful votes</span>
-                  <span>{review.time}</span>
-                </div>
-              </div>
-            ))}
+                      <motion.div 
+                        className="flex space-x-1"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: index * 0.1 + 0.5, type: "spring" }}
+                      >
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <motion.div
+                            key={star}
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ 
+                              delay: index * 0.1 + 0.5 + star * 0.05,
+                              type: "spring",
+                              stiffness: 200
+                            }}
+                          >
+                            <Star className={`w-4 h-4 ${star <= review.rating ? 'fill-current text-yellow-400' : 'text-gray-600'}`} />
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </motion.div>
+                    <motion.p 
+                      className="text-gray-300 mb-4 leading-relaxed flex-grow"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.6 }}
+                    >
+                      {review.review}
+                    </motion.p>
+                    <motion.div 
+                      className="flex justify-between items-center text-xs text-gray-500 mt-auto"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.7 }}
+                    >
+                      <motion.span
+                        whileHover={{ scale: 1.1, color: "#06b6d4" }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        {review.helpful} helpful votes
+                      </motion.span>
+                      <motion.span
+                        whileHover={{ scale: 1.1, color: "#06b6d4" }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        {review.time}
+                      </motion.span>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </main>
