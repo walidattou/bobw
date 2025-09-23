@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Star, Download, Shield, Headphones, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon } from 'lucide-react';
+import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon } from 'lucide-react';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 

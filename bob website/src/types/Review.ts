@@ -17,7 +17,7 @@ export interface Review {
 export interface GameReview {
   id: string;
   title: string;
-  image: string;
+  image: string | null;
   price: string;
   discount?: string;
   rating: number;
