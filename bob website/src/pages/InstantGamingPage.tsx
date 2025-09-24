@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +12,7 @@ const GamingMarketplace: React.FC = () => {
   const [reviewStartIndex, setReviewStartIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
   const [hoveredGenshin, setHoveredGenshin] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Memoize FAQ toggle handler
   const handleFAQToggle = useCallback((index: number) => {
@@ -21,6 +22,15 @@ const GamingMarketplace: React.FC = () => {
   // Memoize Genshin hover handlers
   const handleGenshinHover = useCallback((isHovered: boolean) => {
     setHoveredGenshin(isHovered);
+    if (isHovered && videoRef.current) {
+      // Load and play video only when hovering
+      videoRef.current.load();
+      videoRef.current.play().catch(console.error);
+    } else if (!isHovered && videoRef.current) {
+      // Pause and reset video when not hovering
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
   }, []);
 
 
@@ -363,12 +373,12 @@ const GamingMarketplace: React.FC = () => {
                         decoding="async"
                       />
                       <video 
+                        ref={videoRef}
                         src="/games and offers images/gifs/Genshin Impact.mp4"
-                        autoPlay
                         loop
                         muted
                         playsInline
-                        preload="auto"
+                        preload="none"
                         className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${hoveredGenshin ? 'opacity-100' : 'opacity-0'}`}
                       />
                     </>
