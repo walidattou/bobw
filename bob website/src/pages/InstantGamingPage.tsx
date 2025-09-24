@@ -359,7 +359,7 @@ const GamingMarketplace: React.FC = () => {
                         src={game.image} 
                         alt={game.title}
                         className={`w-full h-full object-cover transition-all duration-300 ${hoveredGenshin ? 'opacity-0' : 'opacity-100'}`}
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
                       />
                       <video 
