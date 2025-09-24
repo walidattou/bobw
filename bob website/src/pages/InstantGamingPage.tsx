@@ -8,20 +8,21 @@ import { userReviews } from '../data/reviewsDatabase';
 
 const GamingMarketplace: React.FC = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [reviewStartIndex, setReviewStartIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
+  const [hoveredGenshin, setHoveredGenshin] = useState<boolean>(false);
 
   // Memoize FAQ toggle handler
   const handleFAQToggle = useCallback((index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
   }, [openFAQ]);
 
-  // Memoize card hover handlers
-  const handleCardHover = useCallback((index: number | null) => {
-    setHoveredCard(index);
+  // Memoize Genshin hover handlers
+  const handleGenshinHover = useCallback((isHovered: boolean) => {
+    setHoveredGenshin(isHovered);
   }, []);
+
 
   // Auto-switch reviews every 10 seconds with cool animations
   useEffect(() => {
@@ -266,7 +267,7 @@ const GamingMarketplace: React.FC = () => {
     <div 
       className="min-h-screen text-white relative"
       style={{
-        backgroundImage: 'url("/website core iamges/paisaje-de-god-of-war-ragnarok-8580.jpg")',
+        backgroundImage: 'url("/website-core-images/retro-digital-art-illustration-person-using-radio-technology.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -292,7 +293,7 @@ const GamingMarketplace: React.FC = () => {
         <div 
             className="hero-background absolute inset-0 w-full h-full"
           style={{
-              backgroundImage: 'url("/website core iamges/paisaje-de-god-of-war-ragnarok-8580.jpg")',
+              backgroundImage: 'url("/website-core-images/image.jpg")',
               clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
               minHeight: '100%',
               minWidth: '100%'
@@ -346,19 +347,40 @@ const GamingMarketplace: React.FC = () => {
               key={index} 
               to={`/game/${game.id}`}
               className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm block"
-              onMouseEnter={() => handleCardHover(index)}
-              onMouseLeave={() => handleCardHover(null)}
+              onMouseEnter={() => game.id === 'genshin-impact' ? handleGenshinHover(true) : null}
+              onMouseLeave={() => game.id === 'genshin-impact' ? handleGenshinHover(false) : null}
             >
               <div className={`relative aspect-[5/3] ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <img 
-                    src={hoveredCard === index && game.gifUrl ? game.gifUrl : game.image} 
-                    alt={game.title}
-                    className="w-full h-full object-cover transition-all duration-300"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  {game.id === 'genshin-impact' ? (
+                    <>
+                      <img 
+                        src={game.image} 
+                        alt={game.title}
+                        className={`w-full h-full object-cover transition-all duration-300 ${hoveredGenshin ? 'opacity-0' : 'opacity-100'}`}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <video 
+                        src="/games and offers images/gifs/Genshin Impact.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${hoveredGenshin ? 'opacity-100' : 'opacity-0'}`}
+                      />
+                    </>
+                  ) : (
+                    <img 
+                      src={game.image} 
+                      alt={game.title}
+                      className="w-full h-full object-cover transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
                 </div>
               </div>
               <div className="p-3 flex items-center justify-between">
