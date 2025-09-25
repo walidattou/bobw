@@ -4,6 +4,7 @@ import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones 
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 import LoadingScreen from '../comps/LoadingScreen';
+import LazyImage from '../comps/LazyImage';
 
 // Function to get gameplay video for each game
 const getGameplayVideo = (gameId: string): string => {
@@ -544,13 +545,12 @@ const GamePage: React.FC = () => {
                     className="relative cursor-pointer group"
                     onClick={() => setIsImageModalOpen(true)}
                   >
-                    <img 
+                    <LazyImage 
                       src={gameData.image} 
                       alt={gameData.title}
                       className="w-full h-auto object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-105"
-                      loading="eager"
-                      decoding="async"
                       fetchPriority="high"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     {/* Zoom overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
@@ -819,11 +819,12 @@ const GamePage: React.FC = () => {
             </button>
             
             {/* Modal image */}
-            <img 
+            <LazyImage 
               src={gameData.image} 
               alt={gameData.title}
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              fetchPriority="high"
+              sizes="90vw"
             />
             
             {/* Image title */}

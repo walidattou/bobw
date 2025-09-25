@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Zap, Shield, DollarSign, Star, Gamepad2, Smartphone, Monitor, Headphones } from 'lucide-react';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
+import LazyImage from '../comps/LazyImage';
 
 const ServicesPage: React.FC = () => {
 
@@ -172,13 +173,12 @@ const ServicesPage: React.FC = () => {
                   className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm flex flex-col"
                 >
                   <div className="relative bg-gray-800">
-                    <img 
+                    <LazyImage 
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-auto object-contain"
-                      loading="lazy"
-                      decoding="async"
                       fetchPriority="low"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="absolute top-3 left-3">

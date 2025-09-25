@@ -93,7 +93,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "51.99 €",
       discount: "-80%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/netflix_lcilx2.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/netflix_lcilx2.webp",
       bgColor: "bg-red-600",
       category: "subscriptions"
     },
@@ -133,7 +133,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mac (Steam)",
       price: "17.99 €",
       discount: "-50%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
       bgColor: "bg-red-800",
       category: "pc-games"
     },
@@ -163,7 +163,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "23.39 €",
       discount: "-67%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837550/football_cafova.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837550/football_cafova.webp",
       bgColor: "bg-orange-600",
       category: "pc-games"
     },
@@ -173,7 +173,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Epic)",
       price: "9.99 €",
       discount: "-67%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837552/clashofclans_deycuo.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837552/clashofclans_deycuo.webp",
       bgColor: "bg-teal-600",
       category: "apps"
     },
@@ -183,7 +183,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "Mobile",
       price: "12.99 €",
       discount: "-30%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/blood_strike_b0cl0r.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/blood_strike_b0cl0r.webp",
       bgColor: "bg-red-700",
       category: "apps"
     },
@@ -193,7 +193,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "4.99 €",
       discount: "-25%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837555/Discord-Nitro_mkdh2o.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837555/Discord-Nitro_mkdh2o.webp",
       bgColor: "bg-indigo-600",
       category: "subscriptions"
     },
@@ -203,7 +203,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "19.99 €",
       discount: "-40%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/infinity_nikki_tkd5wi.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/infinity_nikki_tkd5wi.webp",
       bgColor: "bg-pink-600",
       category: "apps"
     },
@@ -223,7 +223,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "Mobile",
       price: "6.99 €",
       discount: "-20%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837556/feefire_efamzy.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837556/feefire_efamzy.webp",
       bgColor: "bg-yellow-600",
       category: "apps"
     },
@@ -233,7 +233,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "15.99 €",
       discount: "-45%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837283/fortnite_zugje4.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837283/fortnite_zugje4.webp",
       bgColor: "bg-blue-700",
       category: "pc-games"
     },
@@ -605,13 +605,12 @@ const GamingMarketplace: React.FC = () => {
                         transition={{ type: "spring", stiffness: 300 }}
                       >
                     {review.image ? (
-                      <img 
+                      <LazyImage 
                         src={review.image} 
                         alt={review.name}
                         className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
                         fetchPriority="low"
+                        sizes="80px"
                       />
                     ) : (
                           <div className={`w-full h-full bg-gradient-to-r ${review.avatarGradient || 'from-cyan-400 to-cyan-600'} flex items-center justify-center text-white font-bold text-lg`}>
@@ -747,13 +746,12 @@ const GamingMarketplace: React.FC = () => {
             <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 flex-1 backdrop-blur-sm">
               {/* Game Image Header */}
               <div className="relative h-36 bg-gray-800 flex items-end p-3">
-                <img 
+                <LazyImage 
                   src={gameReview.image} 
                   alt={gameReview.title}
                   className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
                   fetchPriority="low"
+                  sizes="100vw"
                 />
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="relative z-10">
