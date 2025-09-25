@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { Star, Download, Shield, Headphones, ChevronDown, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
+import LazyImage from '../comps/LazyImage';
 import { userReviews } from '../data/reviewsDatabase';
 
 const GamingMarketplace: React.FC = () => {
@@ -11,8 +12,9 @@ const GamingMarketplace: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [reviewStartIndex, setReviewStartIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 6;
+  const [visibleCards, setVisibleCards] = useState(6);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const cardsPerLoad = 6;
 
   // Memoize FAQ toggle handler
   const handleFAQToggle = useCallback((index: number) => {
@@ -255,25 +257,54 @@ const GamingMarketplace: React.FC = () => {
     return gameCards.filter(game => game.category === activeFilter);
   }, [gameCards, activeFilter]);
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredGames.length / cardsPerPage);
-  const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
-  const currentGames = filteredGames.slice(startIndex, endIndex);
+  // Infinite scroll logic
+  const currentGames = filteredGames.slice(0, visibleCards);
+  const hasMoreCards = visibleCards < filteredGames.length;
 
-  // Reset to page 1 when filter changes
+  // Reset visible cards when filter changes
   useEffect(() => {
-    setCurrentPage(1);
+    setVisibleCards(6);
   }, [activeFilter]);
 
-  // Pagination handlers
-  const handleNextPage = useCallback(() => {
-    setCurrentPage(prev => Math.min(prev + 1, totalPages));
-  }, [totalPages]);
+  // Load more cards function
+  const loadMoreCards = useCallback(() => {
+    if (isLoadingMore || !hasMoreCards) return;
+    
+    setIsLoadingMore(true);
+    
+    // Simulate loading delay for better UX
+    setTimeout(() => {
+      setVisibleCards(prev => Math.min(prev + cardsPerLoad, filteredGames.length));
+      setIsLoadingMore(false);
+    }, 500);
+  }, [isLoadingMore, hasMoreCards, cardsPerLoad, filteredGames.length]);
 
-  const handlePrevPage = useCallback(() => {
-    setCurrentPage(prev => Math.max(prev - 1, 1));
-  }, []);
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && hasMoreCards && !isLoadingMore) {
+          loadMoreCards();
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '100px'
+      }
+    );
+
+    const loadMoreTrigger = document.getElementById('load-more-trigger');
+    if (loadMoreTrigger) {
+      observer.observe(loadMoreTrigger);
+    }
+
+    return () => {
+      if (loadMoreTrigger) {
+        observer.unobserve(loadMoreTrigger);
+      }
+    };
+  }, [hasMoreCards, isLoadingMore, loadMoreCards]);
 
   // Filter options
   const filterOptions = [
@@ -382,7 +413,7 @@ const GamingMarketplace: React.FC = () => {
               <div className={`relative aspect-[5/3] ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <img 
+                  <LazyImage 
                     src={game.image} 
                     alt={game.title}
                     className={`w-full h-full object-cover transition-all duration-300 ${
@@ -390,8 +421,7 @@ const GamingMarketplace: React.FC = () => {
                       game.id === 'pubg-mobile' ? 'object-bottom' : 
                       'object-center'
                     }`}
-                    loading="lazy"
-                    decoding="async"
+                    fetchPriority={index < 3 ? "high" : "low"}
                   />
                 </div>
               </div>
@@ -406,59 +436,29 @@ const GamingMarketplace: React.FC = () => {
           ))}
         </div>
 
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-center space-x-4 mb-12">
-            <button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                currentPage === 1
-                  ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                  : 'bg-cyan-600 hover:bg-cyan-700 text-white hover:shadow-lg hover:shadow-cyan-500/30'
-              }`}
-            >
-              <ChevronLeft className="w-4 h-4" />
-              <span>Previous</span>
-            </button>
-            
-            <div className="flex items-center space-x-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-lg transition-all duration-300 ${
-                    currentPage === page
-                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/30'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-            
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                currentPage === totalPages
-                  ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                  : 'bg-cyan-600 hover:bg-cyan-700 text-white hover:shadow-lg hover:shadow-cyan-500/30'
-              }`}
-            >
-              <span>Next</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
+        {/* Infinite Scroll Loading */}
+        {hasMoreCards && (
+          <div id="load-more-trigger" className="flex justify-center items-center py-8">
+            {isLoadingMore ? (
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 border-2 border-gray-500 border-t-cyan-400 rounded-full animate-spin"></div>
+                <span className="text-gray-400 text-sm">Loading more games...</span>
+              </div>
+            ) : (
+              <button
+                onClick={loadMoreCards}
+                className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30"
+              >
+                Load More Games
+              </button>
+            )}
           </div>
         )}
 
-        {/* Page Info */}
-        {totalPages > 1 && (
-          <div className="text-center text-gray-400 text-sm mb-8">
-            Showing {startIndex + 1}-{Math.min(endIndex, filteredGames.length)} of {filteredGames.length} games
-          </div>
-        )}
+        {/* Games Count Info */}
+        <div className="text-center text-gray-400 text-sm mb-8">
+          Showing {currentGames.length} of {filteredGames.length} games
+        </div>
 
         {/* Footer Features */}
         <div className="bg-black/30 border border-gray-800/50 rounded-lg mb-8 sm:mb-12 backdrop-blur-sm">
