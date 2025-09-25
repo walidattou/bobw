@@ -9,7 +9,7 @@ const userReviews: Review[] = [
     review: "مصدر موثوق خاوتي",
     time: "2 days ago",
     rating: 5,
-    image: "/reviews-images/Hicham Ht.jpg",
+    image: null,
     verified: true,
     helpful: 5,
     totalReviews: 12
@@ -45,7 +45,7 @@ const userReviews: Review[] = [
     review: "Number one khouya la3ziz Bob",
     time: "1 hour ago",
     rating: 5,
-    image: "/reviews-images/Oualid Derouiche.jpg",
+    image: null,
     verified: true,
     helpful: 6,
     totalReviews: 22
@@ -69,7 +69,7 @@ const userReviews: Review[] = [
     review: "هدي المرة الثانية لي نتعامل معاك ثقة 100% شكرا جزيلا اخي",
     time: "15 minutes ago",
     rating: 5,
-    image: "/reviews-images/Hana Hassani.jpg",
+    image: null,
     verified: true,
     helpful: 7,
     totalReviews: 18
