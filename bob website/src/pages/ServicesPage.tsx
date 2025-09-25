@@ -108,7 +108,7 @@ const ServicesPage: React.FC = () => {
     <div 
       className="min-h-screen text-white relative"
       style={{
-        backgroundImage: 'url("/website core iamges/paisaje-de-god-of-war-ragnarok-8580.jpg")',
+        backgroundImage: 'url("/website-core-images/paisaje-de-god-of-war-ragnarok-8580.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -177,6 +177,8 @@ const ServicesPage: React.FC = () => {
                       alt={service.title}
                       className="w-full h-auto object-contain"
                       loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="absolute top-3 left-3">

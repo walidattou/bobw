@@ -607,6 +607,7 @@ const GamingMarketplace: React.FC = () => {
                         className="w-full h-full object-cover"
                         loading="lazy"
                         decoding="async"
+                        fetchPriority="low"
                       />
                     ) : (
                           <div className={`w-full h-full bg-gradient-to-r ${review.avatarGradient || 'from-cyan-400 to-cyan-600'} flex items-center justify-center text-white font-bold text-lg`}>
@@ -748,6 +749,7 @@ const GamingMarketplace: React.FC = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                 />
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="relative z-10">
