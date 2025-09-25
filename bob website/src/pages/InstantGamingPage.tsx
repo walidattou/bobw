@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
+import { Star, Download, Shield, Headphones, ChevronDown, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../comps/Navigation';
@@ -11,6 +11,8 @@ const GamingMarketplace: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [reviewStartIndex, setReviewStartIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 6;
 
   // Memoize FAQ toggle handler
   const handleFAQToggle = useCallback((index: number) => {
@@ -253,6 +255,26 @@ const GamingMarketplace: React.FC = () => {
     return gameCards.filter(game => game.category === activeFilter);
   }, [gameCards, activeFilter]);
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredGames.length / cardsPerPage);
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
+  const currentGames = filteredGames.slice(startIndex, endIndex);
+
+  // Reset to page 1 when filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeFilter]);
+
+  // Pagination handlers
+  const handleNextPage = useCallback(() => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  }, [totalPages]);
+
+  const handlePrevPage = useCallback(() => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  }, []);
+
   // Filter options
   const filterOptions = [
     { id: 'all', label: 'All', count: gameCards.length },
@@ -337,8 +359,8 @@ const GamingMarketplace: React.FC = () => {
 
         {/* Game Grid */}
         {/* Responsive Game Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {filteredGames.map((game, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          {currentGames.map((game, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
@@ -383,6 +405,60 @@ const GamingMarketplace: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center space-x-4 mb-12">
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                currentPage === 1
+                  ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                  : 'bg-cyan-600 hover:bg-cyan-700 text-white hover:shadow-lg hover:shadow-cyan-500/30'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Previous</span>
+            </button>
+            
+            <div className="flex items-center space-x-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-10 h-10 rounded-lg transition-all duration-300 ${
+                    currentPage === page
+                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/30'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+            
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                currentPage === totalPages
+                  ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                  : 'bg-cyan-600 hover:bg-cyan-700 text-white hover:shadow-lg hover:shadow-cyan-500/30'
+              }`}
+            >
+              <span>Next</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Page Info */}
+        {totalPages > 1 && (
+          <div className="text-center text-gray-400 text-sm mb-8">
+            Showing {startIndex + 1}-{Math.min(endIndex, filteredGames.length)} of {filteredGames.length} games
+          </div>
+        )}
 
         {/* Footer Features */}
         <div className="bg-black/30 border border-gray-800/50 rounded-lg mb-8 sm:mb-12 backdrop-blur-sm">
