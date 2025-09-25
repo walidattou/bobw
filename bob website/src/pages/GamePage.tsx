@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon } from 'lucide-react';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
+import LoadingScreen from '../comps/LoadingScreen';
 
 // Function to get gameplay video for each game
 const getGameplayVideo = (gameId: string): string => {
@@ -33,6 +34,8 @@ const getGameplayVideo = (gameId: string): string => {
 
 const GamePage: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   // Game data - this should match the data from your main page
   const gameData = useMemo(() => {
@@ -414,6 +417,50 @@ const GamePage: React.FC = () => {
     return games.find(game => game.id === gameId) || null;
   }, [gameId]);
 
+  // Image loading optimization
+  useEffect(() => {
+    if (gameData) {
+      // Count total images to load
+      const imagesToLoad = [
+        gameData.image,
+        // Add other images that need to be loaded
+      ].filter(Boolean);
+      
+      if (imagesToLoad.length === 0) {
+        setIsLoading(false);
+        return;
+      }
+
+      // Preload images
+      let loadedCount = 0;
+      const loadImage = (src: string) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            loadedCount++;
+            setLoadingProgress((loadedCount / imagesToLoad.length) * 100);
+            resolve(img);
+          };
+          img.onerror = reject;
+          img.src = src;
+        });
+      };
+
+      // Load all images
+      Promise.all(imagesToLoad.map(loadImage))
+        .then(() => {
+          // Add a small delay for smooth transition
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 500);
+        })
+        .catch(() => {
+          // Even if some images fail, show the page
+          setIsLoading(false);
+        });
+    }
+  }, [gameData]);
+
   if (!gameData) {
     return (
       <div className="min-h-screen text-white relative bg-black">
@@ -451,30 +498,32 @@ const GamePage: React.FC = () => {
   const IconComponent = getIconComponent(gameData.category);
 
   return (
-    <div 
-      className="min-h-screen text-white relative"
-      style={{
-        backgroundImage: 'url("/website-core-images/retro-digital-art-illustration-person-using-radio-technology.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      {/* Dark overlay */}
+    <div>
+      <LoadingScreen isLoading={isLoading} progress={loadingProgress} />
       <div 
-        className="absolute inset-0 bg-black/70"
+        className="min-h-screen text-white relative"
         style={{
-          background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(31, 41, 55, 0.8) 100%)'
+          backgroundImage: 'url("/website-core-images/retro-digital-art-illustration-person-using-radio-technology.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
         }}
-      ></div>
-      
-      <div className="relative z-10">
-        <Navigation />
+      >
+        {/* Dark overlay */}
+        <div 
+          className="absolute inset-0 bg-black/70"
+          style={{
+            background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(31, 41, 55, 0.8) 100%)'
+          }}
+        ></div>
         
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-          {/* Back Button */}
-          <div className="mb-4">
+        <div className="relative z-10">
+          <Navigation />
+          
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            {/* Back Button */}
+            <div className="mb-4">
             <Link 
               to="/" 
               className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -494,8 +543,10 @@ const GamePage: React.FC = () => {
                   <img 
                     src={gameData.image} 
                     alt={gameData.title}
-                     className="max-w-full max-h-full object-contain drop-shadow-lg"
-                    loading="lazy"
+                    className="max-w-full max-h-full object-contain drop-shadow-lg"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                   />
                 </div>
               </div>
@@ -737,9 +788,10 @@ const GamePage: React.FC = () => {
             </div>
           </div>
 
-        </main>
+          </main>
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
     </div>
   );
