@@ -695,7 +695,7 @@ const GamingMarketplace: React.FC = () => {
         <div 
           className="relative h-48 sm:h-64 md:h-80 lg:h-[28rem] bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/website core iamges/borderlandsM.jpg")',
+            backgroundImage: 'url("/website-core-images/bordelands1.webp")',
             clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
           }}
         >
