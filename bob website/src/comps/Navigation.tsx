@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Monitor, Gamepad2, Smartphone, Menu, X } from 'lucide-react';
+import { Monitor, Smartphone, Menu, X } from 'lucide-react';
+import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
@@ -27,23 +28,23 @@ const Navigation: React.FC = () => {
         </nav>
 
         {/* Desktop Platform Icons */}
-        <div className="hidden md:flex items-center space-x-4">
-          <div className="flex items-center space-x-4 lg:space-x-6 text-sm">
-            <span className="flex items-center space-x-1 lg:space-x-2 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Monitor className="w-4 h-4 lg:w-5 lg:h-5" />
-              <span className="hidden lg:inline">PC</span>
+        <div className="hidden md:flex items-center space-x-3">
+          <div className="flex items-center space-x-3 lg:space-x-4">
+            <span className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 transition-all duration-300 cursor-pointer group border border-blue-500/30 hover:border-blue-500/50">
+              <Monitor className="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:text-blue-300" />
+              <span className="text-sm lg:text-base font-medium text-blue-400 group-hover:text-blue-300">PC</span>
             </span>
-            <span className="flex items-center space-x-1 lg:space-x-2 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Gamepad2 className="w-4 h-4 lg:w-5 lg:h-5" />
-              <span className="hidden lg:inline">PSN</span>
+            <span className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 transition-all duration-300 cursor-pointer group border border-blue-600/30 hover:border-blue-600/50">
+              <FaPlaystation className="w-5 h-5 lg:w-6 lg:h-6 text-blue-600 group-hover:text-blue-500" />
+              <span className="text-sm lg:text-base font-medium text-blue-600 group-hover:text-blue-500">PSN</span>
             </span>
-            <span className="flex items-center space-x-1 lg:space-x-2 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Gamepad2 className="w-4 h-4 lg:w-5 lg:h-5" />
-              <span className="hidden lg:inline">Xbox</span>
+            <span className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-green-500/20 hover:bg-green-500/30 transition-all duration-300 cursor-pointer group border border-green-500/30 hover:border-green-500/50">
+              <FaXbox className="w-5 h-5 lg:w-6 lg:h-6 text-green-500 group-hover:text-green-400" />
+              <span className="text-sm lg:text-base font-medium text-green-500 group-hover:text-green-400">Xbox</span>
             </span>
-            <span className="flex items-center space-x-1 lg:space-x-2 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Smartphone className="w-4 h-4 lg:w-5 lg:h-5" />
-              <span className="hidden lg:inline">Mobile</span>
+            <span className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 transition-all duration-300 cursor-pointer group border border-purple-500/30 hover:border-purple-500/50">
+              <Smartphone className="w-5 h-5 lg:w-6 lg:h-6 text-purple-400 group-hover:text-purple-300" />
+              <span className="text-sm lg:text-base font-medium text-purple-400 group-hover:text-purple-300">Mobile</span>
             </span>
           </div>
         </div>
@@ -96,21 +97,21 @@ const Navigation: React.FC = () => {
             {/* Mobile Platform Icons */}
             <div className="pt-4 border-t border-gray-700">
               <div className="grid grid-cols-2 gap-3">
-                <span className="flex items-center space-x-2 text-white hover:text-cyan-400 transition-colors cursor-pointer py-2">
-                  <Monitor className="w-5 h-5" />
-                  <span>PC</span>
+                <span className="flex items-center space-x-2 px-3 py-3 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 transition-all duration-300 cursor-pointer group border border-blue-500/30 hover:border-blue-500/50">
+                  <Monitor className="w-6 h-6 text-blue-400 group-hover:text-blue-300" />
+                  <span className="font-medium text-blue-400 group-hover:text-blue-300">PC</span>
                 </span>
-                <span className="flex items-center space-x-2 text-white hover:text-cyan-400 transition-colors cursor-pointer py-2">
-                  <Gamepad2 className="w-5 h-5" />
-                  <span>PSN</span>
+                <span className="flex items-center space-x-2 px-3 py-3 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 transition-all duration-300 cursor-pointer group border border-blue-600/30 hover:border-blue-600/50">
+                  <FaPlaystation className="w-6 h-6 text-blue-600 group-hover:text-blue-500" />
+                  <span className="font-medium text-blue-600 group-hover:text-blue-500">PSN</span>
                 </span>
-                <span className="flex items-center space-x-2 text-white hover:text-cyan-400 transition-colors cursor-pointer py-2">
-                  <Gamepad2 className="w-5 h-5" />
-                  <span>Xbox</span>
+                <span className="flex items-center space-x-2 px-3 py-3 rounded-lg bg-green-500/20 hover:bg-green-500/30 transition-all duration-300 cursor-pointer group border border-green-500/30 hover:border-green-500/50">
+                  <FaXbox className="w-6 h-6 text-green-500 group-hover:text-green-400" />
+                  <span className="font-medium text-green-500 group-hover:text-green-400">Xbox</span>
                 </span>
-                <span className="flex items-center space-x-2 text-white hover:text-cyan-400 transition-colors cursor-pointer py-2">
-                  <Smartphone className="w-5 h-5" />
-                  <span>Mobile</span>
+                <span className="flex items-center space-x-2 px-3 py-3 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 transition-all duration-300 cursor-pointer group border border-purple-500/30 hover:border-purple-500/50">
+                  <Smartphone className="w-6 h-6 text-purple-400 group-hover:text-purple-300" />
+                  <span className="font-medium text-purple-400 group-hover:text-purple-300">Mobile</span>
                 </span>
               </div>
             </div>

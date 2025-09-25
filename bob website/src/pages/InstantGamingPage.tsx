@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
+import { Star, Download, Shield, Headphones, ChevronDown, Filter, Smartphone, Monitor, CreditCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../comps/Navigation';
@@ -93,7 +93,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "51.99 €",
       discount: "-80%",
-      image: "/games and offers images/netflix.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/netflix_lcilx2.webp",
       bgColor: "bg-red-600",
       category: "subscriptions"
     },
@@ -133,7 +133,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mac (Steam)",
       price: "17.99 €",
       discount: "-50%",
-      image: "/games and offers images/Genshin-Impact-Logo.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
       bgColor: "bg-red-800",
       category: "pc-games"
     },
@@ -163,7 +163,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "23.39 €",
       discount: "-67%",
-      image: "/games and offers images/football.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837550/football_cafova.webp",
       bgColor: "bg-orange-600",
       category: "pc-games"
     },
@@ -173,7 +173,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Epic)",
       price: "9.99 €",
       discount: "-67%",
-      image: "/games and offers images/clashofclans.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837552/clashofclans_deycuo.webp",
       bgColor: "bg-teal-600",
       category: "apps"
     },
@@ -183,7 +183,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "Mobile",
       price: "12.99 €",
       discount: "-30%",
-      image: "/games and offers images/blood strike.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/blood_strike_b0cl0r.webp",
       bgColor: "bg-red-700",
       category: "apps"
     },
@@ -193,7 +193,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "4.99 €",
       discount: "-25%",
-      image: "/games and offers images/Discord-Nitro.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837555/Discord-Nitro_mkdh2o.webp",
       bgColor: "bg-indigo-600",
       category: "subscriptions"
     },
@@ -203,7 +203,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "19.99 €",
       discount: "-40%",
-      image: "/games and offers images/infinity nikki.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837551/infinity_nikki_tkd5wi.webp",
       bgColor: "bg-pink-600",
       category: "apps"
     },
@@ -223,7 +223,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "Mobile",
       price: "6.99 €",
       discount: "-20%",
-      image: "/games and offers images/feefire.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837556/feefire_efamzy.webp",
       bgColor: "bg-yellow-600",
       category: "apps"
     },
@@ -233,7 +233,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "15.99 €",
       discount: "-45%",
-      image: "/games and offers images/fortnite.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758837283/fortnite_zugje4.webp",
       bgColor: "bg-blue-700",
       category: "pc-games"
     },
@@ -308,10 +308,10 @@ const GamingMarketplace: React.FC = () => {
 
   // Filter options
   const filterOptions = [
-    { id: 'all', label: 'All', count: gameCards.length },
-    { id: 'apps', label: 'Apps', count: gameCards.filter(game => game.category === 'apps').length },
-    { id: 'pc-games', label: 'PC Games', count: gameCards.filter(game => game.category === 'pc-games').length },
-    { id: 'subscriptions', label: 'Subscriptions', count: gameCards.filter(game => game.category === 'subscriptions').length }
+    { id: 'all', label: 'All', count: gameCards.length, icon: Filter, color: 'cyan' },
+    { id: 'apps', label: 'Apps', count: gameCards.filter(game => game.category === 'apps').length, icon: Smartphone, color: 'green' },
+    { id: 'pc-games', label: 'PC Games', count: gameCards.filter(game => game.category === 'pc-games').length, icon: Monitor, color: 'blue' },
+    { id: 'subscriptions', label: 'Subscriptions', count: gameCards.filter(game => game.category === 'subscriptions').length, icon: CreditCard, color: 'purple' }
   ];
 
   return (
@@ -358,7 +358,7 @@ const GamingMarketplace: React.FC = () => {
         {/* Trending Section */}
         <div id="trending" className="mb-6 sm:mb-8">
           <div className="flex items-center mb-4">
-            <h2 className="text-xl sm:text-2xl font-bold">Trending</h2>
+            <h2 className="text-xl sm:text-2xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>TRENDING</h2>
             <span className="ml-2 text-gray-400">›</span>
           </div>
           
@@ -370,16 +370,20 @@ const GamingMarketplace: React.FC = () => {
                 onClick={() => setActiveFilter(option.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
                   activeFilter === option.id
-                    ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30'
-                    : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                    ? `bg-${option.color}-500 text-white shadow-lg shadow-${option.color}-500/30`
+                    : `bg-${option.color}-500/20 text-${option.color}-400 hover:bg-${option.color}-500/30 hover:text-${option.color}-300 border border-${option.color}-500/30 hover:border-${option.color}-500/50`
                 }`}
               >
-                <Filter className="w-4 h-4" />
-                {option.label}
+                <option.icon className={`w-4 h-4 ${
+                  activeFilter === option.id
+                    ? 'text-white'
+                    : `text-${option.color}-400`
+                }`} />
+                <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600 }}>{option.label}</span>
                 <span className={`px-2 py-0.5 rounded-full text-xs ${
                   activeFilter === option.id
                     ? 'bg-white/20 text-white'
-                    : 'bg-gray-600/50 text-gray-400'
+                    : `bg-${option.color}-600/50 text-${option.color}-400`
                 }`}>
                   {option.count}
                 </span>
@@ -418,7 +422,6 @@ const GamingMarketplace: React.FC = () => {
                     alt={game.title}
                     className={`w-full h-full object-cover transition-all duration-300 ${
                       game.id === 'mobile-legends' ? 'object-bottom' : 
-                      game.id === 'pubg-mobile' ? 'object-bottom' : 
                       'object-center'
                     }`}
                     fetchPriority={index < 3 ? "high" : "low"}
@@ -426,9 +429,9 @@ const GamingMarketplace: React.FC = () => {
                 </div>
               </div>
               <div className="p-3 flex items-center justify-between">
-                <h3 className="font-semibold text-sm text-white truncate">{game.title}</h3>
-                <span className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
-                  See More
+                <h3 className="font-semibold text-sm text-white truncate" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}>{game.title}</h3>
+                <span className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                  SEE MORE
                 </span>
               </div>
               </Link>
@@ -448,8 +451,9 @@ const GamingMarketplace: React.FC = () => {
               <button
                 onClick={loadMoreCards}
                 className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30"
+                style={{ fontFamily: 'Chakra Petch, sans-serif', fontWeight: 600 }}
               >
-                Load More Games
+                LOAD MORE GAMES
               </button>
             )}
           </div>
@@ -518,16 +522,16 @@ const GamingMarketplace: React.FC = () => {
         {/* Reviews Section */}
         <div id="reviews" className="mb-4 sm:mb-6">
           <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">What Our Gamers Say</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>WHAT OUR GAMERS SAY</h2>
             <div className="flex justify-center items-center space-x-2 mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star key={star} className="w-6 h-6 fill-current text-yellow-400" />
               ))}
-              <span className="text-xl font-bold ml-2">4.9/5</span>
+              <span className="text-xl font-bold ml-2" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 800 }}>4.9/5</span>
             </div>
             <div className="mt-6">
-              <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transition-all transform text-sm sm:text-base">
-                Join 2M+ Happy Gamers
+              <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transition-all transform text-sm sm:text-base" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700 }}>
+                JOIN 2M+ HAPPY GAMERS
               </div>
             </div>
           </div>
@@ -708,7 +712,7 @@ const GamingMarketplace: React.FC = () => {
       {/* Gamer Reviews Section Title */}
       <div id="game-reviews" className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="flex items-center mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold">Gamer reviews</h2>
+          <h2 className="text-xl sm:text-2xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>GAMER REVIEWS</h2>
           <span className="ml-2 text-gray-400">›</span>
         </div>
 
@@ -796,7 +800,7 @@ const GamingMarketplace: React.FC = () => {
       {/* FAQs Section */}
       <div id="faq" className="bg-black/20 py-8 sm:py-16 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">FAQs</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>FAQs</h2>
           
           <div className="space-y-3 sm:space-y-4">
             {faqData.map((faq, index) => (

@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon } from 'lucide-react';
+import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon, X, ZoomIn } from 'lucide-react';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 import LoadingScreen from '../comps/LoadingScreen';
@@ -36,6 +36,7 @@ const GamePage: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // Game data - this should match the data from your main page
   const gameData = useMemo(() => {
@@ -537,17 +538,25 @@ const GamePage: React.FC = () => {
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {/* Game Image */}
             <div className="relative">
-               <div className={`relative h-72 sm:h-80 lg:h-96 ${gameData.bgColor} rounded-xl overflow-hidden shadow-2xl`}>
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <img 
-                    src={gameData.image} 
-                    alt={gameData.title}
-                    className="max-w-full max-h-full object-contain drop-shadow-lg"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                  />
+               <div className={`relative ${gameData.bgColor} rounded-xl overflow-hidden shadow-2xl`}>
+                <div className="relative bg-black/20 p-4">
+                  <div 
+                    className="relative cursor-pointer group"
+                    onClick={() => setIsImageModalOpen(true)}
+                  >
+                    <img 
+                      src={gameData.image} 
+                      alt={gameData.title}
+                      className="w-full h-auto object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-105"
+                      loading="eager"
+                      decoding="async"
+                      fetchPriority="high"
+                    />
+                    {/* Zoom overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                      <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
                 </div>
               </div>
                
@@ -793,6 +802,38 @@ const GamePage: React.FC = () => {
           <Footer />
         </div>
       </div>
+
+      {/* Image Modal */}
+      {isImageModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          onClick={() => setIsImageModalOpen(false)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] p-4">
+            {/* Close button */}
+            <button
+              onClick={() => setIsImageModalOpen(false)}
+              className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all duration-300"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            {/* Modal image */}
+            <img 
+              src={gameData.image} 
+              alt={gameData.title}
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+            
+            {/* Image title */}
+            <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-sm rounded-lg p-3">
+              <h3 className="text-white text-lg font-semibold">{gameData.title}</h3>
+              <p className="text-gray-300 text-sm">Click outside to close</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
