@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Star, Download, Shield, Headphones, ChevronDown, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,31 +11,20 @@ const GamingMarketplace: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [reviewStartIndex, setReviewStartIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
-  const [hoveredGenshin, setHoveredGenshin] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Memoize FAQ toggle handler
   const handleFAQToggle = useCallback((index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
   }, [openFAQ]);
 
-  // Memoize Genshin hover handlers
-  const handleGenshinHover = useCallback((isHovered: boolean) => {
-    setHoveredGenshin(isHovered);
-    if (isHovered && videoRef.current) {
-      // Load and play video only when hovering
-      videoRef.current.load();
-      videoRef.current.play().catch(console.error);
-    } else if (!isHovered && videoRef.current) {
-      // Pause and reset video when not hovering
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  }, []);
 
 
   // Auto-switch reviews every 10 seconds with cool animations
   useEffect(() => {
+    // Reduce animation frequency on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    const intervalTime = isMobile ? 15000 : 10000; // 15s on mobile, 10s on desktop
+    
     const interval = setInterval(() => {
       setReviewStartIndex((prevIndex) => {
         // Move to next set of 6 reviews, cycling back to start when we reach the end
@@ -43,7 +32,7 @@ const GamingMarketplace: React.FC = () => {
         return nextIndex >= userReviews.length ? 0 : nextIndex;
       });
       setAnimationKey(prev => prev + 1); // Trigger animation
-    }, 10000); // 10 seconds
+    }, intervalTime);
 
     return () => clearInterval(interval);
   }, []);
@@ -131,7 +120,6 @@ const GamingMarketplace: React.FC = () => {
       price: "17.99 €",
       discount: "-40%",
       image: "/games and offers images/league.webp",
-      gifUrl: "/games and offers images/gifs/mobile-legends-game.gif",
       bgColor: "bg-orange-500",
       category: "pc-games"
     },
@@ -142,7 +130,6 @@ const GamingMarketplace: React.FC = () => {
       price: "17.99 €",
       discount: "-50%",
       image: "/games and offers images/Genshin-Impact-Logo.webp",
-      gifUrl: "/games and offers images/gifs/genshin impact.gif",
       bgColor: "bg-red-800",
       category: "pc-games"
     },
@@ -153,7 +140,6 @@ const GamingMarketplace: React.FC = () => {
       price: "13.99 €",
       discount: null,
       image: "/games and offers images/pubgmobile.webp",
-      gifUrl: "/games and offers images/gifs/pubggif.gif",
       bgColor: "bg-purple-600",
       category: "apps"
     },
@@ -164,7 +150,6 @@ const GamingMarketplace: React.FC = () => {
       price: "31.99 €",
       discount: "-20%",
       image: "/games and offers images/wuthering waves - Copy.jpg",
-      gifUrl: "/games and offers images/gifs/wuthering-waves-jiyan.gif",
       bgColor: "bg-gray-700",
       category: "pc-games"
     },
@@ -175,7 +160,6 @@ const GamingMarketplace: React.FC = () => {
       price: "23.39 €",
       discount: "-67%",
       image: "/games and offers images/football.webp",
-      gifUrl: "/games and offers images/gifs/Efootball.gif",
       bgColor: "bg-orange-600",
       category: "pc-games"
     },
@@ -186,7 +170,6 @@ const GamingMarketplace: React.FC = () => {
       price: "9.99 €",
       discount: "-67%",
       image: "/games and offers images/clashofclans.webp",
-      gifUrl: "/games and offers images/gifs/clash of clans.gif",
       bgColor: "bg-teal-600",
       category: "apps"
     },
@@ -197,7 +180,6 @@ const GamingMarketplace: React.FC = () => {
       price: "12.99 €",
       discount: "-30%",
       image: "/games and offers images/blood strike.webp",
-      gifUrl: "/games and offers images/gifs/blood strike.gif",
       bgColor: "bg-red-700",
       category: "apps"
     },
@@ -218,7 +200,6 @@ const GamingMarketplace: React.FC = () => {
       price: "19.99 €",
       discount: "-40%",
       image: "/games and offers images/infinity nikki.webp",
-      gifUrl: "/games and offers images/gifs/infinty nikki.gif",
       bgColor: "bg-pink-600",
       category: "apps"
     },
@@ -229,7 +210,6 @@ const GamingMarketplace: React.FC = () => {
       price: "8.99 €",
       discount: "-35%",
       image: "/games and offers images/roblox.webp",
-      gifUrl: "/games and offers images/gifs/roblox.gif",
       bgColor: "bg-green-600",
       category: "apps"
     },
@@ -240,7 +220,6 @@ const GamingMarketplace: React.FC = () => {
       price: "6.99 €",
       discount: "-20%",
       image: "/games and offers images/feefire.webp",
-      gifUrl: "/games and offers images/gifs/freefiregif.gif",
       bgColor: "bg-yellow-600",
       category: "apps"
     },
@@ -251,9 +230,18 @@ const GamingMarketplace: React.FC = () => {
       price: "15.99 €",
       discount: "-45%",
       image: "/games and offers images/fortnite.webp",
-      gifUrl: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExemd5aDc2am1tNmMxYWN3MWQ3cnI2NXo1eHgwbXdxZXJnaXZ1c201YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EMp5I4EfDhLNP8qbPv/giphy.gif",
       bgColor: "bg-blue-700",
       category: "pc-games"
+    },
+    {
+      id: "spotify",
+      title: "Spotify Premium",
+      platform: "PC & Mobile",
+      price: "4.99 €",
+      discount: "-30%",
+      image: "/games and offers images/Spotify-Icon-White-Dark-Background-Logo.wine.svg",
+      bgColor: "bg-green-600",
+      category: "subscriptions"
     }
   ], []);
 
@@ -279,7 +267,7 @@ const GamingMarketplace: React.FC = () => {
       style={{
         backgroundImage: 'url("/website-core-images/retro-digital-art-illustration-person-using-radio-technology.jpg")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed'
       }}
@@ -309,8 +297,6 @@ const GamingMarketplace: React.FC = () => {
               minWidth: '100%'
             }}
           />
-          {/* Dark overlay for better text readability if needed */}
-          <div className="absolute inset-0 bg-black/20" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}></div>
         </div>
       </section>
 
@@ -353,44 +339,38 @@ const GamingMarketplace: React.FC = () => {
         {/* Responsive Game Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {filteredGames.map((game, index) => (
-            <Link 
-              key={index} 
-              to={`/game/${game.id}`}
-              className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm block"
-              onMouseEnter={() => game.id === 'genshin-impact' ? handleGenshinHover(true) : null}
-              onMouseLeave={() => game.id === 'genshin-impact' ? handleGenshinHover(false) : null}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: index * 0.1,
+                ease: "easeOut"
+              }}
+              whileHover={{ 
+                y: -10,
+                transition: { duration: 0.2 }
+              }}
             >
+              <Link 
+                to={`/game/${game.id}`}
+                className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm block"
+              >
               <div className={`relative aspect-[5/3] ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  {game.id === 'genshin-impact' ? (
-                    <>
-                      <img 
-                        src={game.image} 
-                        alt={game.title}
-                        className={`w-full h-full object-cover transition-all duration-300 ${hoveredGenshin ? 'opacity-0' : 'opacity-100'}`}
-                        loading="eager"
-                        decoding="async"
-                      />
-                      <video 
-                        ref={videoRef}
-                        src="/games and offers images/gifs/Genshin Impact.mp4"
-                        loop
-                        muted
-                        playsInline
-                        preload="none"
-                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${hoveredGenshin ? 'opacity-100' : 'opacity-0'}`}
-                      />
-                    </>
-                  ) : (
-                    <img 
-                      src={game.image} 
-                      alt={game.title}
-                      className="w-full h-full object-cover transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  )}
+                  <img 
+                    src={game.image} 
+                    alt={game.title}
+                    className={`w-full h-full object-cover transition-all duration-300 ${
+                      game.id === 'mobile-legends' ? 'object-bottom' : 
+                      game.id === 'pubg-mobile' ? 'object-bottom' : 
+                      'object-center'
+                    }`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               </div>
               <div className="p-3 flex items-center justify-between">
@@ -399,7 +379,8 @@ const GamingMarketplace: React.FC = () => {
                   See More
                 </span>
               </div>
-            </Link>
+              </Link>
+            </motion.div>
           ))}
         </div>
 
@@ -483,7 +464,7 @@ const GamingMarketplace: React.FC = () => {
                 initial={{ 
                   opacity: 0, 
                   scale: 0.8,
-                  rotateX: -15,
+                  rotateX: window.innerWidth < 768 ? 0 : -15,
                   y: 50
                 }}
                 animate={{ 
@@ -495,13 +476,13 @@ const GamingMarketplace: React.FC = () => {
                 exit={{ 
                   opacity: 0, 
                   scale: 0.8,
-                  rotateX: 15,
+                  rotateX: window.innerWidth < 768 ? 0 : 15,
                   y: -50
                 }}
                 transition={{ 
-                  duration: 0.8,
+                  duration: window.innerWidth < 768 ? 0.4 : 0.8,
                   ease: [0.4, 0.0, 0.2, 1],
-                  staggerChildren: 0.1
+                  staggerChildren: window.innerWidth < 768 ? 0.05 : 0.1
                 }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
               >
