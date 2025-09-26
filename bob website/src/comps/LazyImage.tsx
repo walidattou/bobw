@@ -26,10 +26,16 @@ const LazyImage: React.FC<LazyImageProps> = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   // Use utility functions for Cloudinary optimization
-
   const optimizedSrc = optimizeCloudinaryUrl(src);
   const srcSet = generateResponsiveSrcSet(src);
   const responsiveSizes = sizes || getResponsiveSizes('custom');
+
+  // Debug logging
+  console.log('LazyImage Debug:', {
+    originalSrc: src,
+    optimizedSrc: optimizedSrc,
+    isCloudinary: src.includes('cloudinary.com')
+  });
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -58,10 +64,15 @@ const LazyImage: React.FC<LazyImageProps> = ({
     setHasError(false);
   };
 
-  const handleError = () => {
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     setHasError(true);
     setIsLoaded(false);
-    console.warn(`Failed to load image: ${src}`);
+    console.error(`Failed to load image:`, {
+      originalSrc: src,
+      optimizedSrc: optimizedSrc,
+      error: e,
+      target: e.target
+    });
   };
 
   return (
@@ -90,9 +101,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
       {isInView && (
         <img
           ref={imgRef}
-          src={optimizedSrc}
-          srcSet={srcSet}
-          sizes={responsiveSizes}
+          src={src} // Use original src directly for debugging
           alt={alt}
           className={`transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'

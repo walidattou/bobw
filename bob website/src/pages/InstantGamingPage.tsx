@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
-import LazyImage from '../comps/LazyImage';
+// import LazyImage from '../comps/LazyImage';
 import { userReviews } from '../data/reviewsDatabase';
 
 const GamingMarketplace: React.FC = () => {
@@ -417,14 +417,14 @@ const GamingMarketplace: React.FC = () => {
               <div className={`relative aspect-[5/3] ${game.bgColor}`}>
                 <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <LazyImage 
+                  <img 
                     src={game.image} 
                     alt={game.title}
                     className={`w-full h-full object-cover transition-all duration-300 ${
                       game.id === 'mobile-legends' ? 'object-bottom' : 
                       'object-center'
                     }`}
-                    fetchPriority={index < 3 ? "high" : "low"}
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -605,12 +605,11 @@ const GamingMarketplace: React.FC = () => {
                         transition={{ type: "spring", stiffness: 300 }}
                       >
                     {review.image ? (
-                      <LazyImage 
+                      <img 
                         src={review.image} 
                         alt={review.name}
                         className="w-full h-full object-cover"
-                        fetchPriority="low"
-                        sizes="80px"
+                        loading="lazy"
                       />
                     ) : (
                           <div className={`w-full h-full bg-gradient-to-r ${review.avatarGradient || 'from-cyan-400 to-cyan-600'} flex items-center justify-center text-white font-bold text-lg`}>
@@ -720,7 +719,7 @@ const GamingMarketplace: React.FC = () => {
           {useMemo(() => [
             {
               title: "Genshin Impact",
-              image: import.meta.env.DEV ? "/games and offers images/Genshin-Impact-Logo.webp" : "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
+              image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
               user: "TravelerPro",
               review: "Amazing open-world RPG with stunning visuals and engaging combat. The gacha system can be expensive but the free content is substantial. Love exploring Teyvat!",
               likes: 47,
@@ -728,7 +727,7 @@ const GamingMarketplace: React.FC = () => {
             },
             {
               title: "PUBG Mobile",
-              image: "/games and offers images/pubgmobile.webp",
+              image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/pubgmobile_webp",
               user: "BattleRoyaleKing",
               review: "Best mobile battle royale game out there! Graphics are incredible and the gameplay is smooth. Perfect for quick matches during breaks.",
               likes: 32,
@@ -736,7 +735,7 @@ const GamingMarketplace: React.FC = () => {
             },
             {
               title: "Wuthering Waves",
-              image: "/games and offers images/wuthering waves - Copy.jpg",
+              image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758902358/wuthering_waves_-_Copy_po6wdp.jpg",
               user: "WaveRider",
               review: "Incredible action RPG with fluid combat mechanics. The character designs are beautiful and the story is engaging. Highly recommend for anime game fans!",
               likes: 28,
@@ -746,12 +745,11 @@ const GamingMarketplace: React.FC = () => {
             <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 flex-1 backdrop-blur-sm">
               {/* Game Image Header */}
               <div className="relative h-36 bg-gray-800 flex items-end p-3">
-                <LazyImage 
+                <img 
                   src={gameReview.image} 
                   alt={gameReview.title}
                   className="absolute inset-0 w-full h-full object-cover"
-                  fetchPriority="low"
-                  sizes="100vw"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="relative z-10">
