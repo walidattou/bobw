@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { optimizeCloudinaryUrl, generateResponsiveSrcSet, getResponsiveSizes } from '../utils/cloudinaryUtils';
+import { optimizeCloudinaryUrl } from '../utils/cloudinaryUtils';
 
 interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
   fetchPriority?: 'high' | 'low' | 'auto';
-  sizes?: string;
   width?: number;
   height?: number;
 }
@@ -16,7 +15,6 @@ const LazyImage: React.FC<LazyImageProps> = ({
   alt,
   className = '',
   fetchPriority = 'auto',
-  sizes = '100vw',
   width,
   height,
 }) => {
@@ -27,8 +25,6 @@ const LazyImage: React.FC<LazyImageProps> = ({
 
   // Use utility functions for Cloudinary optimization
   const optimizedSrc = optimizeCloudinaryUrl(src);
-  const srcSet = generateResponsiveSrcSet(src);
-  const responsiveSizes = sizes || getResponsiveSizes('custom');
 
   // Debug logging
   console.log('LazyImage Debug:', {

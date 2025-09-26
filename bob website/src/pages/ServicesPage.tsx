@@ -178,7 +178,6 @@ const ServicesPage: React.FC = () => {
                       alt={service.title}
                       className="w-full h-auto object-contain"
                       fetchPriority="low"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="absolute top-3 left-3">
