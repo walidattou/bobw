@@ -9,7 +9,6 @@ interface LazyImageProps {
   sizes?: string;
   width?: number;
   height?: number;
-  placeholder?: string;
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({
@@ -20,7 +19,6 @@ const LazyImage: React.FC<LazyImageProps> = ({
   sizes = '100vw',
   width,
   height,
-  placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+'
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
