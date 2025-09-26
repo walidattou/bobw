@@ -103,7 +103,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "9.99 €",
       discount: "-50%",
-      image: "/games and offers images/xbox game pass.webp",
+      image: import.meta.env.DEV ? "/games and offers images/xbox game pass.webp" : "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758902358/xbox_game_pass_hnztca.webp",
       bgColor: "bg-blue-600",
       category: "subscriptions"
     },
@@ -113,7 +113,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "16.59 €",
       discount: "-60%",
-      image: "/games and offers images/prime video.webp",
+      image: import.meta.env.DEV ? "/games and offers images/prime video.webp" : "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758902365/prime_video_owcwkn.webp",
       bgColor: "bg-cyan-500",
       category: "subscriptions"
     },
@@ -153,7 +153,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "31.99 €",
       discount: "-20%",
-      image: "/games and offers images/wuthering waves - Copy.jpg",
+      image: import.meta.env.DEV ? "/games and offers images/wuthering waves - Copy.jpg" : "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758902358/wuthering_waves_-_Copy_po6wdp.jpg",
       bgColor: "bg-gray-700",
       category: "pc-games"
     },
@@ -720,7 +720,7 @@ const GamingMarketplace: React.FC = () => {
           {useMemo(() => [
             {
               title: "Genshin Impact",
-              image: "/games and offers images/Genshin-Impact-Logo.webp",
+              image: import.meta.env.DEV ? "/games and offers images/Genshin-Impact-Logo.webp" : "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
               user: "TravelerPro",
               review: "Amazing open-world RPG with stunning visuals and engaging combat. The gacha system can be expensive but the free content is substantial. Love exploring Teyvat!",
               likes: 47,

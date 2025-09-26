@@ -156,3 +156,4 @@ Create presets for common use cases:
 - Use Cloudinary's automatic optimizations
 - Implement proper lazy loading
 - Monitor and optimize regularly
+

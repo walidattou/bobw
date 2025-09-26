@@ -63,6 +63,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
   const handleError = () => {
     setHasError(true);
     setIsLoaded(false);
+    console.warn(`Failed to load image: ${src}`);
   };
 
   return (

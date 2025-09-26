@@ -146,3 +146,4 @@ export const getOptimalDimensions = (context: 'hero' | 'card' | 'thumbnail' | 'm
 
   return dimensions[context];
 };
+
