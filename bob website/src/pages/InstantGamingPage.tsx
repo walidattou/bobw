@@ -318,7 +318,7 @@ const GamingMarketplace: React.FC = () => {
     <div 
       className="min-h-screen text-white relative"
       style={{
-        backgroundImage: 'url("/website-core-images/retro-digital-art-illustration-person-using-radio-technology.jpg")',
+        backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915744/retro-digital-art-illustration-person-using-radio-technology_ct0yug.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat',
@@ -344,7 +344,7 @@ const GamingMarketplace: React.FC = () => {
         <div 
             className="hero-background absolute inset-0 w-full h-full"
           style={{
-              backgroundImage: 'url("/website-core-images/image.jpg")',
+              backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915741/image_mtyq1d.jpg")',
               clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
               minHeight: '100%',
               minWidth: '100%'
@@ -697,7 +697,7 @@ const GamingMarketplace: React.FC = () => {
         <div 
           className="relative h-48 sm:h-64 md:h-80 lg:h-[28rem] bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/website-core-images/borderlandsM.jpg")',
+            backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915752/borderlandsM_ui9jak.jpg")',
             clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
           }}
         >
@@ -727,7 +727,7 @@ const GamingMarketplace: React.FC = () => {
             },
             {
               title: "PUBG Mobile",
-              image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/pubgmobile_webp",
+              image: "/games and offers images/pubgmobile.webp",
               user: "BattleRoyaleKing",
               review: "Best mobile battle royale game out there! Graphics are incredible and the gameplay is smooth. Perfect for quick matches during breaks.",
               likes: 32,

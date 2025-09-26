@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon, X, ZoomIn } from 'lucide-react';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
-import LoadingScreen from '../comps/LoadingScreen';
+// import LoadingScreen from '../comps/LoadingScreen';
 // import LazyImage from '../comps/LazyImage';
 
 // Function to get gameplay video for each game
@@ -35,8 +35,8 @@ const getGameplayVideo = (gameId: string): string => {
 
 const GamePage: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [loadingProgress, setLoadingProgress] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   // Game data - this should match the data from your main page
@@ -87,7 +87,7 @@ const GamePage: React.FC = () => {
         platform: "PC (Steam)",
         price: "17.99 €",
         discount: "-40%",
-        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758903221/honorfinal2025_xgm9c4.webp",
+        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758916664/mlbb-metro_bug3xb.webp",
         gifUrl: null,
         bgColor: "bg-orange-500",
         category: "pc-games",
@@ -101,7 +101,7 @@ const GamePage: React.FC = () => {
         platform: "PC & Mac (Steam)",
         price: "17.99 €",
         discount: "-50%",
-        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758903225/Infinity-01_oo3b15.webp",
+        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758916831/genshin_impact_1_kpswhp.webp",
         gifUrl: "/games and offers images/gifs/genshin impact.gif",
         bgColor: "bg-red-800",
         category: "pc-games",
@@ -239,7 +239,7 @@ const GamePage: React.FC = () => {
         platform: "PC & Mobile",
         price: "4.99 €",
         discount: "-25%",
-        image: "/services/Discord-01.webp",
+        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837555/Discord-Nitro_mkdh2o.webp",
         bgColor: "bg-indigo-600",
         category: "subscriptions",
         description: "Enhanced Discord experience with premium features and perks for better communication.",
@@ -353,7 +353,7 @@ const GamePage: React.FC = () => {
         platform: "PC & Mobile",
         price: "4.99 €",
         discount: "-30%",
-        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/Spotify-Icon-White-Dark-Background-Logo_wine.svg",
+        image: "/games and offers images/Spotify-Icon-White-Dark-Background-Logo.wine.svg",
         bgColor: "bg-green-600",
         category: "subscriptions",
         description: "Premium music streaming service with ad-free listening, offline downloads, and high-quality audio.",
@@ -397,7 +397,7 @@ const GamePage: React.FC = () => {
         platform: "PC (Steam)",
         price: "17.99 €",
         discount: "-40%",
-        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758903221/honorfinal2025_xgm9c4.webp",
+        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758916664/mlbb-metro_bug3xb.webp",
         gifUrl: null,
         bgColor: "bg-orange-500",
         category: "pc-games",
@@ -419,49 +419,10 @@ const GamePage: React.FC = () => {
     return games.find(game => game.id === gameId) || null;
   }, [gameId]);
 
-  // Image loading optimization
-  useEffect(() => {
-    if (gameData) {
-      // Count total images to load
-      const imagesToLoad = [
-        gameData.image,
-        // Add other images that need to be loaded
-      ].filter(Boolean);
-      
-      if (imagesToLoad.length === 0) {
-        setIsLoading(false);
-        return;
-      }
-
-      // Preload images
-      let loadedCount = 0;
-      const loadImage = (src: string) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => {
-            loadedCount++;
-            setLoadingProgress((loadedCount / imagesToLoad.length) * 100);
-            resolve(img);
-          };
-          img.onerror = reject;
-          img.src = src;
-        });
-      };
-
-      // Load all images
-      Promise.all(imagesToLoad.map(loadImage))
-        .then(() => {
-          // Add a small delay for smooth transition
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 500);
-        })
-        .catch(() => {
-          // Even if some images fail, show the page
-          setIsLoading(false);
-        });
-    }
-  }, [gameData]);
+  // Image loading optimization - removed loading screen
+  // useEffect(() => {
+  //   // Loading logic removed to eliminate loading screen
+  // }, [gameData]);
 
   if (!gameData) {
     return (
@@ -501,7 +462,7 @@ const GamePage: React.FC = () => {
 
   return (
     <div>
-      <LoadingScreen isLoading={isLoading} progress={loadingProgress} />
+      {/* <LoadingScreen isLoading={isLoading} progress={loadingProgress} /> */}
       <div 
         className="min-h-screen text-white relative"
         style={{
@@ -620,7 +581,7 @@ const GamePage: React.FC = () => {
                   <span className="text-sm">Instagram</span>
                 </a>
                 <a 
-                  href="https://wa.me/213123456789" 
+                  href="https://wa.me/213554106359" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50 flex items-center justify-center group"
