@@ -120,12 +120,12 @@ const GamingMarketplace: React.FC = () => {
     {
       id: "mobile-legends",
       title: "Mobile legends",
-      platform: "PC (Steam)",
+      platform: "Mobile",
       price: "17.99 €",
       discount: "-40%",
       image: "/games and offers images/league.webp",
       bgColor: "bg-orange-500",
-      category: "pc-games"
+      category: "apps"
     },
     {
       id: "genshin-impact",
@@ -159,13 +159,13 @@ const GamingMarketplace: React.FC = () => {
     },
     {
       id: "efootball",
-      title: "Efootball",
-      platform: "PC (Steam)",
+      title: "Efootball Mobile",
+      platform: "Mobile",
       price: "23.39 €",
       discount: "-67%",
       image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837550/football_cafova.webp",
       bgColor: "bg-orange-600",
-      category: "pc-games"
+      category: "apps"
     },
     {
       id: "clash-of-clans",
