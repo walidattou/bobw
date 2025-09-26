@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon, X, ZoomIn } from 'lucide-react';
 import Navigation from '../comps/Navigation';
