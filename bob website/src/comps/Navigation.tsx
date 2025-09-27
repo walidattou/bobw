@@ -3,6 +3,7 @@ import { Monitor, Smartphone, Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ImageWithFallback from './ImageWithFallback';
 
 const Navigation: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -76,10 +77,12 @@ const Navigation: React.FC = () => {
           {/* Animated Logo Image */}
           <div className="relative">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-cyan-400/50 group-hover:border-cyan-300 transition-all duration-300 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-400/40">
-              <img 
+              <ImageWithFallback 
                 src="/website-core-images/bob.jpg"
                 alt="Bob Store Logo"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
             {/* Rotating Ring Animation */}

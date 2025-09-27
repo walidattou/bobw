@@ -4,6 +4,8 @@ import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones 
 import { useTranslation } from 'react-i18next';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
+import ImageWithFallback from '../comps/ImageWithFallback';
+import { getBackgroundImageStyle } from '../utils/imageFallback';
 // import LoadingScreen from '../comps/LoadingScreen';
 // import LazyImage from '../comps/LazyImage';
 
@@ -561,13 +563,7 @@ const GamePage: React.FC = () => {
       {/* <LoadingScreen isLoading={isLoading} progress={loadingProgress} /> */}
       <div 
         className="min-h-screen text-white relative"
-        style={{
-          backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915744/retro-digital-art-illustration-person-using-radio-technology_ct0yug.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
-        }}
+        style={getBackgroundImageStyle('https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915744/retro-digital-art-illustration-person-using-radio-technology_ct0yug.jpg')}
       >
         {/* Dark overlay */}
         <div 
@@ -602,11 +598,12 @@ const GamePage: React.FC = () => {
                     className="relative cursor-pointer group"
                     onClick={() => setIsImageModalOpen(true)}
                   >
-                    <img 
+                    <ImageWithFallback 
                       src={gameData.image} 
                       alt={gameData.title}
                       className="w-full h-auto object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-105"
                       loading="eager"
+                      fetchPriority="high"
                     />
                     {/* Zoom overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
@@ -875,11 +872,12 @@ const GamePage: React.FC = () => {
             </button>
             
             {/* Modal image */}
-            <img 
+            <ImageWithFallback 
               src={gameData.image} 
               alt={gameData.title}
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               loading="eager"
+              fetchPriority="high"
             />
             
             {/* Image title */}

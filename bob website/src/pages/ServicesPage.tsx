@@ -3,7 +3,8 @@ import { Zap, Shield, DollarSign, Star, Gamepad2, Smartphone, Monitor, Headphone
 import { useTranslation } from 'react-i18next';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
-import LazyImage from '../comps/LazyImage';
+import ImageWithFallback from '../comps/ImageWithFallback';
+import { getBackgroundImageStyle } from '../utils/imageFallback';
 
 const ServicesPage: React.FC = () => {
   const { t } = useTranslation();
@@ -118,13 +119,7 @@ const ServicesPage: React.FC = () => {
   return (
     <div 
       className="min-h-screen text-white relative"
-      style={{
-        backgroundImage: 'url("/website-core-images/paisaje-de-god-of-war-ragnarok-8580.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
+      style={getBackgroundImageStyle('/website-core-images/paisaje-de-god-of-war-ragnarok-8580.jpg')}
     >
       {/* Dark overlay to make the background darker */}
       <div 
@@ -183,7 +178,7 @@ const ServicesPage: React.FC = () => {
                   className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm flex flex-col"
                 >
                   <div className="relative bg-gray-800">
-                    <LazyImage 
+                    <ImageWithFallback 
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-auto object-contain"

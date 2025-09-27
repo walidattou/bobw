@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
+import ImageWithFallback from '../comps/ImageWithFallback';
+import { getBackgroundImageStyle } from '../utils/imageFallback';
 // import LazyImage from '../comps/LazyImage';
 import { userReviews } from '../data/reviewsDatabase';
 
@@ -288,13 +290,7 @@ const GamingMarketplace: React.FC = () => {
   return (
     <div 
       className="min-h-screen text-white relative"
-      style={{
-        backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915744/retro-digital-art-illustration-person-using-radio-technology_ct0yug.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center top',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
+      style={getBackgroundImageStyle('https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915744/retro-digital-art-illustration-person-using-radio-technology_ct0yug.jpg')}
     >
       {/* Dark overlay to make the background darker */}
       <div 
@@ -315,7 +311,7 @@ const GamingMarketplace: React.FC = () => {
         <div 
             className="hero-background absolute inset-0 w-full h-full"
           style={{
-              backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915741/image_mtyq1d.jpg")',
+              ...getBackgroundImageStyle('https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915741/image_mtyq1d.jpg'),
               clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
               minHeight: '100%',
               minWidth: '100%'
@@ -385,23 +381,26 @@ const GamingMarketplace: React.FC = () => {
                 to={`/game/${game.id}`}
                 className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-cyan-500/20 hover:border hover:border-cyan-500/30 backdrop-blur-sm block"
               >
-              <div className={`relative aspect-[5/3] ${game.bgColor}`}>
-                <div className="absolute inset-0 bg-black/20"></div>
+              <div className={`relative aspect-[5/3] ${game.bgColor} overflow-hidden`}>
+                <div className="absolute inset-0 bg-black/20 z-10"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <img 
+                  <ImageWithFallback 
                     src={game.image} 
                     alt={game.title}
-                    className={`w-full h-full object-cover transition-all duration-300 ${
-                      game.id === 'mobile-legends' ? 'object-bottom' : 
-                      'object-center'
+                    className={`w-full h-full transition-all duration-300 ${
+                      game.id === 'mobile-legends' ? 'object-bottom object-cover' : 
+                      game.id === 'roblox' ? 'object-contain' :
+                      game.id === 'free-fire' ? 'object-contain' :
+                      game.id === 'fortnite' ? 'object-contain' :
+                      'object-cover'
                     }`}
                     loading="lazy"
                   />
                 </div>
               </div>
-              <div className="p-3 flex items-center justify-between">
-                <h3 className="font-semibold text-sm text-white truncate" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}>{game.title}</h3>
-                <span className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+              <div className="p-3 flex items-center justify-between bg-black/60 backdrop-blur-sm relative z-20">
+                <h3 className="font-semibold text-sm text-white truncate flex-1 mr-2" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}>{game.title}</h3>
+                <span className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors whitespace-nowrap" style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
                   SEE MORE
                 </span>
               </div>
@@ -576,7 +575,7 @@ const GamingMarketplace: React.FC = () => {
                         transition={{ type: "spring", stiffness: 300 }}
                       >
                     {review.image ? (
-                      <img 
+                      <ImageWithFallback 
                         src={review.image} 
                         alt={review.name}
                         className="w-full h-full object-cover"
@@ -668,7 +667,7 @@ const GamingMarketplace: React.FC = () => {
         <div 
           className="relative h-48 sm:h-64 md:h-80 lg:h-[28rem] bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915752/borderlandsM_ui9jak.jpg")',
+            ...getBackgroundImageStyle('https://res.cloudinary.com/dzvgjeddx/image/upload/v1758915752/borderlandsM_ui9jak.jpg'),
             clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
           }}
         >
@@ -716,7 +715,7 @@ const GamingMarketplace: React.FC = () => {
             <div key={index} className="bg-black/40 rounded-lg overflow-hidden hover:bg-black/60 transition-all duration-300 flex-1 backdrop-blur-sm">
               {/* Game Image Header */}
               <div className="relative h-36 bg-gray-800 flex items-end p-3">
-                <img 
+                <ImageWithFallback 
                   src={gameReview.image} 
                   alt={gameReview.title}
                   className="absolute inset-0 w-full h-full object-cover"

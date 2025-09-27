@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { optimizeCloudinaryUrl } from '../utils/cloudinaryUtils';
+import { getFallbackImage } from '../utils/imageFallback';
 
 interface LazyImageProps {
   src: string;
@@ -8,6 +9,7 @@ interface LazyImageProps {
   fetchPriority?: 'high' | 'low' | 'auto';
   width?: number;
   height?: number;
+  fallbackSrc?: string; // Optional explicit fallback
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({
@@ -17,14 +19,19 @@ const LazyImage: React.FC<LazyImageProps> = ({
   fetchPriority = 'auto',
   width,
   height,
+  fallbackSrc,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
   const imgRef = useRef<HTMLImageElement>(null);
 
   // Use utility functions for Cloudinary optimization
   const optimizedSrc = optimizeCloudinaryUrl(src);
+  
+  // Get fallback image
+  const fallbackImage = fallbackSrc || getFallbackImage(src);
 
   // Debug logging
   console.log('LazyImage Debug:', {
@@ -60,15 +67,13 @@ const LazyImage: React.FC<LazyImageProps> = ({
     setHasError(false);
   };
 
-  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    setHasError(true);
-    setIsLoaded(false);
-    console.error(`Failed to load image:`, {
-      originalSrc: src,
-      optimizedSrc: optimizedSrc,
-      error: e,
-      target: e.target
-    });
+  const handleError = () => {
+    if (!hasError) {
+      setHasError(true);
+      setIsLoaded(false);
+      setCurrentSrc(fallbackImage);
+      console.log(`Image fallback triggered: ${src} -> ${fallbackImage}`);
+    }
   };
 
   return (
@@ -97,7 +102,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
       {isInView && (
         <img
           ref={imgRef}
-          src={src} // Use original src directly for debugging
+          src={currentSrc}
           alt={alt}
           className={`transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
