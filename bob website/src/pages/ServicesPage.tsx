@@ -1,51 +1,61 @@
 import React, { useMemo } from 'react';
 import { Zap, Shield, DollarSign, Star, Gamepad2, Smartphone, Monitor, Headphones } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 import LazyImage from '../comps/LazyImage';
 
 const ServicesPage: React.FC = () => {
+  const { t } = useTranslation();
 
   const services = useMemo(() => [
     {
-      title: "Amazon Prime",
-      description: "Premium streaming service with movies, series, and exclusive content",
+      title: t('servicesPage.services.amazonPrime.title'),
+      description: t('servicesPage.services.amazonPrime.description'),
       image: "/services/Amazone-Prime.webp",
       price: "€4.99/month",
       icon: Monitor,
-      features: ["HD Streaming", "Exclusive Content", "Free Shipping", "Prime Gaming"]
+      features: t('servicesPage.services.amazonPrime.features', { returnObjects: true }) as string[]
     },
     {
-      title: "Blood Strike",
-      description: "Mobile battle royale game with intense combat and survival gameplay",
+      title: t('servicesPage.services.bloodStrike.title'),
+      description: t('servicesPage.services.bloodStrike.description'),
       image: "/services/BLOOD-STRIKE.webp",
       price: "€12.99",
       icon: Smartphone,
-      features: ["Battle Royale", "Mobile Gaming", "Multiplayer", "Fast Paced"]
+      features: t('servicesPage.services.bloodStrike.features', { returnObjects: true }) as string[]
     },
     {
-      title: "PUBG Mobile",
-      description: "The ultimate battle royale experience on mobile devices",
+      title: t('servicesPage.services.brawlStars.title'),
+      description: t('servicesPage.services.brawlStars.description'),
+      image: "/services/BRAWL.jpg",
+      price: "€12.99",
+      icon: Smartphone,
+      features: t('servicesPage.services.brawlStars.features', { returnObjects: true }) as string[]
+    },
+    {
+      title: t('servicesPage.services.pubgMobile.title'),
+      description: t('servicesPage.services.pubgMobile.description'),
       image: "/services/BOB-PUBG-2.webp",
       price: "€9.99",
       icon: Smartphone,
-      features: ["100 Players", "Mobile Optimized", "Regular Updates", "Global Competition"]
+      features: t('servicesPage.services.pubgMobile.features', { returnObjects: true }) as string[]
     },
     {
-      title: "Clash of Clans",
-      description: "Build your village, raise a clan, and compete in epic Clan Wars",
+      title: t('servicesPage.services.clashOfClans.title'),
+      description: t('servicesPage.services.clashOfClans.description'),
       image: "/services/CLASH.webp",
       price: "€8.99",
       icon: Gamepad2,
-      features: ["Base Building", "Clan Wars", "Strategy Game", "Social Gaming"]
+      features: t('servicesPage.services.clashOfClans.features', { returnObjects: true }) as string[]
     },
     {
-      title: "Discord Nitro",
-      description: "Enhanced Discord experience with premium features and perks",
+      title: t('servicesPage.services.discordNitro.title'),
+      description: t('servicesPage.services.discordNitro.description'),
       image: "/services/Discord-01.webp",
       price: "€4.99/month",
       icon: Headphones,
-      features: ["HD Streaming", "Custom Emojis", "Server Boosts", "Profile Badges"]
+      features: t('servicesPage.services.discordNitro.features', { returnObjects: true }) as string[]
     },
     {
       title: "eFootball",
@@ -96,14 +106,14 @@ const ServicesPage: React.FC = () => {
       features: ["Game Creation", "Social Platform", "Educational Games", "Virtual Economy"]
     },
     {
-      title: "Wuthering Waves",
-      description: "Open-world action RPG with stunning visuals and immersive gameplay",
+      title: t('servicesPage.services.wutheringWaves.title'),
+      description: t('servicesPage.services.wutheringWaves.description'),
       image: "/services/wuthering-update.webp",
       price: "€16.99",
       icon: Star,
-      features: ["Open World", "Action RPG", "Stunning Graphics", "Character Collection"]
+      features: t('servicesPage.services.wutheringWaves.features', { returnObjects: true }) as string[]
     }
-  ], []);
+  ], [t]);
 
   return (
     <div 
@@ -133,23 +143,23 @@ const ServicesPage: React.FC = () => {
         <div className="relative h-80 sm:h-96 flex items-center justify-center px-4">
           <div className="text-center z-10 max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-red-500 to-cyan-500 bg-clip-text text-transparent">
-              Our Services
+              {t('servicesPage.hero.title')}
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto">
-              Discover our comprehensive range of gaming and digital services. From streaming subscriptions to mobile games, we've got you covered.
+              {t('servicesPage.hero.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 lg:space-x-8 text-sm text-gray-400">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                <span>Premium Quality</span>
+                <span>{t('servicesPage.hero.premiumQuality')}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
-                <span>Instant Delivery</span>
+                <span>{t('servicesPage.hero.instantDelivery')}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>24/7 Support</span>
+                <span>{t('servicesPage.hero.support24')}</span>
               </div>
             </div>
           </div>
@@ -158,9 +168,9 @@ const ServicesPage: React.FC = () => {
         {/* Services Grid */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Available Services</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">{t('servicesPage.availableServices.title')}</h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base px-4">
-              Choose from our wide selection of premium gaming and digital services, all available at competitive prices.
+              {t('servicesPage.availableServices.subtitle')}
             </p>
           </div>
 
@@ -228,9 +238,9 @@ const ServicesPage: React.FC = () => {
         <div className="bg-black/20 py-8 sm:py-16 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4">Why Choose Our Services?</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">{t('servicesPage.whyChoose.title')}</h2>
               <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base px-4">
-                We provide the best digital services with guaranteed quality and fast delivery.
+                {t('servicesPage.whyChoose.subtitle')}
               </p>
             </div>
 
@@ -239,24 +249,24 @@ const ServicesPage: React.FC = () => {
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg shadow-red-500/50">
                   <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-2">Instant Delivery</h3>
-                <p className="text-gray-400 text-sm sm:text-base">Get your services delivered within minutes of payment confirmation.</p>
+                <h3 className="text-lg sm:text-xl font-bold mb-2">{t('servicesPage.whyChoose.instantDelivery.title')}</h3>
+                <p className="text-gray-400 text-sm sm:text-base">{t('servicesPage.whyChoose.instantDelivery.description')}</p>
               </div>
               
               <div className="text-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg shadow-cyan-500/50">
                   <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-2">100% Guaranteed</h3>
-                <p className="text-gray-400 text-sm sm:text-base">All our services come with a full guarantee and customer support.</p>
+                <h3 className="text-lg sm:text-xl font-bold mb-2">{t('servicesPage.whyChoose.guaranteed.title')}</h3>
+                <p className="text-gray-400 text-sm sm:text-base">{t('servicesPage.whyChoose.guaranteed.description')}</p>
               </div>
               
               <div className="text-center sm:col-span-2 lg:col-span-1">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg shadow-green-500/50">
                   <DollarSign className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-2">Best Prices</h3>
-                <p className="text-gray-400 text-sm sm:text-base">Competitive prices in Algeria with regular discounts and offers.</p>
+                <h3 className="text-lg sm:text-xl font-bold mb-2">{t('servicesPage.whyChoose.bestPrices.title')}</h3>
+                <p className="text-gray-400 text-sm sm:text-base">{t('servicesPage.whyChoose.bestPrices.description')}</p>
               </div>
             </div>
           </div>

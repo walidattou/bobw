@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob Store - Open Graph Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 2;
+        }
+        
+        .logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #06b6d4;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(6, 182, 212, 0.5);
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .text-content {
+            color: white;
+            max-width: 600px;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #94a3b8;
+            margin: 0 0 30px 0;
+            font-weight: 500;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .feature {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #06b6d4;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 20% 80%, #06b6d4 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #3b82f6 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, #8b5cf6 0%, transparent 50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="container">
+        <div class="logo">
+            <img src="/website-core-images/bob.jpg" alt="Bob Store Logo">
+        </div>
+        <div class="text-content">
+            <h1 class="title">Bob Store</h1>
+            <p class="subtitle">Gaming & Digital Services</p>
+            <div class="features">
+                <span class="feature">Xbox Game Pass</span>
+                <span class="feature">Netflix</span>
+                <span class="feature">PUBG Mobile</span>
+                <span class="feature">Genshin Impact</span>
+                <span class="feature">Discord Nitro</span>
+                <span class="feature">Spotify Premium</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

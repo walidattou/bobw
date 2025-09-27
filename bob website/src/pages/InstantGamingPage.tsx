@@ -2,12 +2,14 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Star, Download, Shield, Headphones, ChevronDown, Filter, Smartphone, Monitor, CreditCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 // import LazyImage from '../comps/LazyImage';
 import { userReviews } from '../data/reviewsDatabase';
 
 const GamingMarketplace: React.FC = () => {
+  const { t } = useTranslation();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [reviewStartIndex, setReviewStartIndex] = useState(0);
@@ -41,55 +43,24 @@ const GamingMarketplace: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Memoize FAQ data to prevent re-creation on every render
-  const faqData = useMemo(() => [
-    {
-      question: "What services does Bob Store offer?",
-      answer: "Bob Store is an online shop specializing in game recharges for PC and Android, streaming subscriptions (Shahid, Netflix), Discord subscriptions, Amazon Prime, and various digital services. We offer the cheapest prices in Algeria with guaranteed fast service."
-    },
-    {
-      question: "Do you provide game recharges for PC and Android?",
-      answer: "Yes! We provide game recharges for popular games like Roblox, Fortnite, and many others on both PC and Android platforms. We offer the most competitive prices in Algeria with instant delivery."
-    },
-    {
-      question: "What streaming subscriptions do you offer?",
-      answer: "We offer subscriptions for Shahid, Netflix, Amazon Prime, and other popular streaming services. All subscriptions come with a 100% guarantee and are delivered instantly to your account."
-    },
-    {
-      question: "How fast is your service delivery?",
-      answer: "We pride ourselves on fast service! Most orders are processed and delivered within minutes of payment confirmation. Our team works efficiently to ensure you get your digital products as quickly as possible."
-    },
-    {
-      question: "What are your business hours?",
-      answer: "We are available from 11:00 AM to 11:00 PM (11h-23h) every day. You can contact us during these hours for any inquiries or support needs."
-    },
-    {
-      question: "Do you offer Discord subscriptions?",
-      answer: "Yes! We offer Discord Nitro subscriptions for both your existing account or we can provide you with a new account. Choose the option that works best for you."
-    },
-    {
-      question: "Can I get Amazon Prime subscriptions?",
-      answer: "Absolutely! We provide Amazon Prime subscriptions that give you access to high-quality movies and series. Enjoy unlimited streaming with our guaranteed service."
-    },
-    {
-      question: "How can I contact Bob Store for support?",
-      answer: "You can reach us at bobstorebussiness@gmail.com or through our social media channels. We're available from 11h-23h and respond quickly to all inquiries."
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer: "We accept various payment methods including bank transfers, mobile payments, and other local payment options. Contact us to discuss the best payment method for your location."
-    },
-    {
-      question: "Do you offer the cheapest prices in Algeria?",
-      answer: "Yes! We are committed to offering the most competitive prices in Algeria. Our prices are regularly updated to ensure you get the best deals on all our services."
-    }
-  ], []);
+  // Get FAQ data from translations
+  const faqData = useMemo(() => t('faq.questions', { returnObjects: true }) as Array<{question: string, answer: string}>, [t]);
 
   // Memoize game cards data to prevent re-creation on every render
   const gameCards = useMemo(() => [
     {
+      id: "brawl-stars",
+      title: "Brawl Stars",
+      platform: "Mobile",
+      price: "12.99 €",
+      discount: "-25%",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758919803/brawl_aq9il5.webp",
+      bgColor: "bg-yellow-500",
+      category: "apps"
+    },
+    {
       id: "netflix",
-      title: "Netflix subscriptions",
+      title: t('services.netflix.title'),
       platform: "PC (Steam)",
       price: "51.99 €",
       discount: "-80%",
@@ -99,7 +70,7 @@ const GamingMarketplace: React.FC = () => {
     },
     {
       id: "xbox-game-pass",
-      title: "Xbox game pass subscriptions",
+      title: t('services.xboxGamePass.title'),
       platform: "PC (Steam)",
       price: "9.99 €",
       discount: "-50%",
@@ -153,7 +124,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC (Steam)",
       price: "31.99 €",
       discount: "-20%",
-      image: import.meta.env.DEV ? "/games and offers images/wuthering waves - Copy.jpg" : "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758902358/wuthering_waves_-_Copy_po6wdp.jpg",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758984176/wuthering_waves_g1lzcq.webp",
       bgColor: "bg-gray-700",
       category: "pc-games"
     },
@@ -183,7 +154,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "Mobile",
       price: "12.99 €",
       discount: "-30%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/blood_strike_b0cl0r.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758984009/bloodstrike_gbzkew.jpg",
       bgColor: "bg-red-700",
       category: "apps"
     },
@@ -203,7 +174,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "19.99 €",
       discount: "-40%",
-      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/infinity_nikki_tkd5wi.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758984009/infinity_nikki_xz3ocb.jpg",
       bgColor: "bg-pink-600",
       category: "apps"
     },
@@ -213,7 +184,7 @@ const GamingMarketplace: React.FC = () => {
       platform: "PC & Mobile",
       price: "8.99 €",
       discount: "-35%",
-      image: "/games and offers images/roblox.webp",
+      image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758984009/roblox_cvshwh.jpg",
       bgColor: "bg-green-600",
       category: "apps"
     },
@@ -308,10 +279,10 @@ const GamingMarketplace: React.FC = () => {
 
   // Filter options
   const filterOptions = [
-    { id: 'all', label: 'All', count: gameCards.length, icon: Filter, color: 'cyan' },
-    { id: 'apps', label: 'Apps', count: gameCards.filter(game => game.category === 'apps').length, icon: Smartphone, color: 'green' },
-    { id: 'pc-games', label: 'PC Games', count: gameCards.filter(game => game.category === 'pc-games').length, icon: Monitor, color: 'blue' },
-    { id: 'subscriptions', label: 'Subscriptions', count: gameCards.filter(game => game.category === 'subscriptions').length, icon: CreditCard, color: 'purple' }
+    { id: 'all', label: t('categories.all'), count: gameCards.length, icon: Filter, color: 'cyan' },
+    { id: 'apps', label: t('categories.apps'), count: gameCards.filter(game => game.category === 'apps').length, icon: Smartphone, color: 'green' },
+    { id: 'pc-games', label: t('categories.pcGames'), count: gameCards.filter(game => game.category === 'pc-games').length, icon: Monitor, color: 'blue' },
+    { id: 'subscriptions', label: t('categories.subscriptions'), count: gameCards.filter(game => game.category === 'subscriptions').length, icon: CreditCard, color: 'purple' }
   ];
 
   return (
@@ -473,8 +444,8 @@ const GamingMarketplace: React.FC = () => {
                 <Download className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg drop-shadow-red-500/50" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-bold text-white text-base sm:text-lg">Super fast</h3>
-                <p className="text-gray-400 text-xs sm:text-sm">Instant digital download</p>
+                <h3 className="font-bold text-white text-base sm:text-lg">{t('features.superFast')}</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">{t('features.instantDownload')}</p>
               </div>
             </div>
 
@@ -484,8 +455,8 @@ const GamingMarketplace: React.FC = () => {
                 <Shield className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg drop-shadow-red-500/50" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-bold text-white text-base sm:text-lg">Reliable & safe</h3>
-                <p className="text-gray-400 text-xs sm:text-sm">Over 20,000 games</p>
+                <h3 className="font-bold text-white text-base sm:text-lg">{t('features.reliableSafe')}</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">{t('features.overGames')}</p>
               </div>
             </div>
 
@@ -495,8 +466,8 @@ const GamingMarketplace: React.FC = () => {
                 <Headphones className="w-6 h-6 sm:w-8 sm:h-8 drop-shadow-lg drop-shadow-red-500/50" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-bold text-white text-base sm:text-lg">Customer support</h3>
-                <p className="text-gray-400 text-xs sm:text-sm">Human support 24/7</p>
+                <h3 className="font-bold text-white text-base sm:text-lg">{t('features.customerSupport')}</h3>
+                <p className="text-gray-400 text-xs sm:text-sm">{t('features.humanSupport')}</p>
               </div>
             </div>
 
@@ -506,12 +477,12 @@ const GamingMarketplace: React.FC = () => {
                 <Star className="w-6 h-6 sm:w-8 sm:h-8 fill-current" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-bold text-green-500 text-base sm:text-lg">Trustpilot</h3>
+                <h3 className="font-bold text-green-500 text-base sm:text-lg">{t('features.trustpilot')}</h3>
                 <div className="flex items-center space-x-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star key={star} className="w-2 h-2 sm:w-3 sm:h-3 fill-current text-green-400" />
                   ))}
-                  <span className="text-xs text-gray-400 ml-1">777,543 reviews</span>
+                  <span className="text-xs text-gray-400 ml-1">777,543 {t('features.reviews')}</span>
                 </div>
               </div>
             </div>
@@ -522,7 +493,7 @@ const GamingMarketplace: React.FC = () => {
         {/* Reviews Section */}
         <div id="reviews" className="mb-4 sm:mb-6">
           <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>WHAT OUR GAMERS SAY</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>{t('features.whatGamersSay')}</h2>
             <div className="flex justify-center items-center space-x-2 mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star key={star} className="w-6 h-6 fill-current text-yellow-400" />
@@ -531,7 +502,7 @@ const GamingMarketplace: React.FC = () => {
             </div>
             <div className="mt-6">
               <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-6 sm:px-8 py-3 rounded-full font-semibold shadow-lg shadow-red-500/50 hover:shadow-red-500/70 hover:scale-105 transition-all transform text-sm sm:text-base" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700 }}>
-                JOIN 2M+ HAPPY GAMERS
+{t('features.joinGamers')}
               </div>
             </div>
           </div>
@@ -710,7 +681,7 @@ const GamingMarketplace: React.FC = () => {
       {/* Gamer Reviews Section Title */}
       <div id="game-reviews" className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="flex items-center mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>GAMER REVIEWS</h2>
+          <h2 className="text-xl sm:text-2xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>{t('features.gamerReviews')}</h2>
           <span className="ml-2 text-gray-400">›</span>
         </div>
 
@@ -721,7 +692,7 @@ const GamingMarketplace: React.FC = () => {
               title: "Genshin Impact",
               image: "https://res.cloudinary.com/dzvgjeddx/image/upload/q_auto,f_auto/v1758837551/Genshin-Impact-Logo_v2k8rt.webp",
               user: "TravelerPro",
-              review: "Amazing open-world RPG with stunning visuals and engaging combat. The gacha system can be expensive but the free content is substantial. Love exploring Teyvat!",
+              review: t('gameReviews.genshinImpact.review'),
               likes: 47,
               verified: true
             },
@@ -729,7 +700,7 @@ const GamingMarketplace: React.FC = () => {
               title: "PUBG Mobile",
               image: "/games and offers images/pubgmobile.webp",
               user: "BattleRoyaleKing",
-              review: "Best mobile battle royale game out there! Graphics are incredible and the gameplay is smooth. Perfect for quick matches during breaks.",
+              review: t('gameReviews.pubgMobile.review'),
               likes: 32,
               verified: true
             },
@@ -737,7 +708,7 @@ const GamingMarketplace: React.FC = () => {
               title: "Wuthering Waves",
               image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758902358/wuthering_waves_-_Copy_po6wdp.jpg",
               user: "WaveRider",
-              review: "Incredible action RPG with fluid combat mechanics. The character designs are beautiful and the story is engaging. Highly recommend for anime game fans!",
+              review: t('gameReviews.wutheringWaves.review'),
               likes: 28,
               verified: true
             }
@@ -796,7 +767,7 @@ const GamingMarketplace: React.FC = () => {
       {/* FAQs Section */}
       <div id="faq" className="bg-black/20 py-8 sm:py-16 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>FAQs</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>{t('faq.title')}</h2>
           
           <div className="space-y-3 sm:space-y-4">
             {faqData.map((faq, index) => (

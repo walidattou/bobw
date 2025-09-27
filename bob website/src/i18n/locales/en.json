@@ -1,0 +1,399 @@
+{
+  "navigation": {
+    "trending": "Trending",
+    "gameReviews": "Games Reviews",
+    "reviews": "Reviews",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "Welcome to Bob Store",
+    "subtitle": "Your Ultimate Gaming & Digital Services Destination",
+    "description": "Premium gaming recharges, streaming subscriptions, and digital services at the cheapest prices in Algeria. Get Xbox Game Pass, Netflix, PUBG Mobile, Genshin Impact, and more!"
+  },
+  "services": {
+    "title": "Available Services",
+    "subtitle": "Choose from our wide selection of premium gaming and digital services, all available at competitive prices.",
+    "netflix": {
+      "title": "Netflix subscriptions",
+      "description": "Premium streaming service with movies, series, and exclusive content"
+    },
+    "xboxGamePass": {
+      "title": "Xbox game pass subscriptions",
+      "description": "Access to hundreds of games with Xbox Game Pass"
+    },
+    "primeVideo": {
+      "title": "Prime video subscriptions",
+      "description": "Stream movies and TV shows with Amazon Prime Video"
+    },
+    "mobileLegends": {
+      "title": "Mobile legends",
+      "description": "Popular mobile MOBA game with strategic gameplay"
+    },
+    "genshinImpact": {
+      "title": "Genshin impact",
+      "description": "Open-world action RPG with stunning visuals"
+    },
+    "pubgMobile": {
+      "title": "PUBG mobile",
+      "description": "The ultimate battle royale experience on mobile"
+    },
+    "wutheringWaves": {
+      "title": "Wuthering waves",
+      "description": "Open-world action RPG with immersive gameplay"
+    },
+    "efootball": {
+      "title": "Efootball Mobile",
+      "description": "The next generation of football gaming"
+    },
+    "clashOfClans": {
+      "title": "Clash of clans",
+      "description": "Build your village and compete in epic battles"
+    },
+    "bloodStrike": {
+      "title": "Blood Strike",
+      "description": "Mobile battle royale with intense combat"
+    },
+    "discordNitro": {
+      "title": "Discord Nitro",
+      "description": "Enhanced Discord experience with premium features"
+    },
+    "infinityNikki": {
+      "title": "Infinity Nikki",
+      "description": "Fashion and adventure game with stunning visuals"
+    },
+    "roblox": {
+      "title": "Roblox",
+      "description": "Platform where you can create and play millions of games"
+    },
+    "freeFire": {
+      "title": "Free Fire",
+      "description": "Fast-paced battle royale designed for mobile"
+    },
+    "fortnite": {
+      "title": "Fortnite",
+      "description": "Battle royale with building mechanics"
+    },
+    "spotify": {
+      "title": "Spotify Premium",
+      "description": "Premium music streaming service"
+    },
+    "brawlStars": {
+      "title": "Brawl Stars",
+      "description": "Fast-paced multiplayer battle game with unique brawlers"
+    }
+  },
+  "platforms": {
+    "pc": "PC",
+    "mobile": "Mobile",
+    "psn": "PSN",
+    "xbox": "Xbox",
+    "steam": "Steam"
+  },
+  "categories": {
+    "all": "All",
+    "apps": "Apps",
+    "pcGames": "PC Games",
+    "subscriptions": "Subscriptions"
+  },
+  "common": {
+    "price": "Price",
+    "discount": "Discount",
+    "platform": "Platform",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "contact": "Contact",
+    "support": "Support"
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "subtitle": "See what our satisfied customers have to say about our services"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our services",
+    "questions": [
+      {
+        "question": "What services does Bob Store offer?",
+        "answer": "Bob Store is an online shop specializing in game recharges for PC and Android, streaming subscriptions (Shahid, Netflix), Discord subscriptions, Amazon Prime, and various digital services. We offer the cheapest prices in Algeria with guaranteed fast service."
+      },
+      {
+        "question": "Do you provide game recharges for PC and Android?",
+        "answer": "Yes! We specialize in game recharges for both PC and Android devices. We provide recharges for all popular games including PUBG Mobile, Mobile Legends, Genshin Impact, Free Fire, and more."
+      },
+      {
+        "question": "What streaming subscriptions do you offer?",
+        "answer": "We offer subscriptions for Shahid, Netflix, Amazon Prime, and other popular streaming services. All subscriptions come with a 100% guarantee and are delivered instantly to your account."
+      },
+      {
+        "question": "How fast is your service delivery?",
+        "answer": "Our service is very fast! Most orders are delivered within 5-15 minutes of payment confirmation. We are committed to providing fast and reliable service to all our customers."
+      },
+      {
+        "question": "What are your business hours?",
+        "answer": "We are available 24/7! You can contact us anytime via WhatsApp, Facebook, or Instagram. Our support team works around the clock to help you."
+      },
+      {
+        "question": "Do you offer Discord subscriptions?",
+        "answer": "Yes! We offer Discord Nitro subscriptions with all premium features. You can get Nitro Classic or full Nitro depending on your needs."
+      },
+      {
+        "question": "Can I get Amazon Prime subscriptions?",
+        "answer": "Absolutely! We offer Amazon Prime subscriptions with all features including Prime Video, Prime Music, and free shipping. All subscriptions are guaranteed and confirmed."
+      },
+      {
+        "question": "How can I contact Bob Store for support?",
+        "answer": "You can contact us via WhatsApp, Facebook, or Instagram. We are available 24/7 and look forward to helping you anytime. You can also send a direct message and we'll reply as soon as possible."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept all common payment methods in Algeria including bank transfer, CIB, DAB, and cash on delivery. All transactions are secure and protected."
+      },
+      {
+        "question": "Do you offer the cheapest prices in Algeria?",
+        "answer": "Yes! We are committed to offering the most competitive prices in Algeria. Our prices are regularly updated to ensure you get the best deals on all our services."
+      }
+    ]
+  },
+  "servicesPage": {
+    "hero": {
+      "title": "Our Services",
+      "subtitle": "Discover our comprehensive range of gaming and digital services. From streaming subscriptions to mobile games, we've got you covered.",
+      "premiumQuality": "Premium Quality",
+      "instantDelivery": "Instant Delivery",
+      "support24": "24/7 Support"
+    },
+    "availableServices": {
+      "title": "Available Services",
+      "subtitle": "Choose from our wide selection of premium gaming and digital services, all available at competitive prices."
+    },
+    "whyChoose": {
+      "title": "Why Choose Our Services?",
+      "subtitle": "We provide the best digital services with guaranteed quality and fast delivery.",
+      "instantDelivery": {
+        "title": "Instant Delivery",
+        "description": "Get your services delivered within minutes of payment confirmation."
+      },
+      "guaranteed": {
+        "title": "100% Guaranteed",
+        "description": "All our services come with a full guarantee and customer support."
+      },
+      "bestPrices": {
+        "title": "Best Prices",
+        "description": "Competitive prices in Algeria with regular discounts and offers."
+      }
+    },
+    "services": {
+      "amazonPrime": {
+        "title": "Amazon Prime",
+        "description": "Premium streaming service with movies, series, and exclusive content",
+        "features": ["HD Streaming", "Exclusive Content", "Free Shipping", "Prime Gaming"]
+      },
+      "bloodStrike": {
+        "title": "Blood Strike",
+        "description": "Mobile battle royale game with intense combat and survival gameplay",
+        "features": ["Battle Royale", "Mobile Gaming", "Multiplayer", "Fast Paced"]
+      },
+      "brawlStars": {
+        "title": "Brawl Stars",
+        "description": "Fast-paced multiplayer battle game with unique brawlers and exciting game modes",
+        "features": ["Multiplayer Battles", "Unique Brawlers", "Multiple Game Modes", "Team Play"]
+      },
+      "pubgMobile": {
+        "title": "PUBG Mobile",
+        "description": "The ultimate battle royale experience on mobile devices",
+        "features": ["100 Players", "Mobile Optimized", "Regular Updates", "Global Competition"]
+      },
+      "clashOfClans": {
+        "title": "Clash of Clans",
+        "description": "Build your village, raise a clan, and compete in epic Clan Wars",
+        "features": ["Base Building", "Clan Wars", "Strategy Game", "Social Gaming"]
+      },
+      "discordNitro": {
+        "title": "Discord Nitro",
+        "description": "Enhanced Discord experience with premium features and perks",
+        "features": ["HD Streaming", "Custom Emojis", "Server Boosts", "Profile Badges"]
+      },
+      "spotify": {
+        "title": "Spotify Premium",
+        "description": "Ad-free music streaming with offline downloads and premium features",
+        "features": ["Ad-Free Music", "Offline Downloads", "High Quality Audio", "Unlimited Skips"]
+      },
+      "mobileLegends": {
+        "title": "Mobile Legends",
+        "description": "5v5 MOBA game with fast-paced battles and strategic gameplay",
+        "features": ["5v5 MOBA", "Fast Paced", "Strategic Gameplay", "Team Battles"]
+      },
+      "genshinImpact": {
+        "title": "Genshin Impact",
+        "description": "Open-world action RPG with stunning visuals and engaging combat",
+        "features": ["Open World", "Action RPG", "Stunning Graphics", "Character Collection"]
+      },
+      "wutheringWaves": {
+        "title": "Wuthering Waves",
+        "description": "Open-world action RPG with immersive gameplay and beautiful graphics",
+        "features": ["Open World", "Action RPG", "Immersive Story", "Beautiful Graphics"]
+      }
+    }
+  },
+  "footer": {
+    "trustpilot": {
+      "trustScore": "TrustScore 4.7 | 777,543 reviews"
+    },
+    "joinCommunity": "Join our community",
+    "appStore": {
+      "downloadOn": "Download on the",
+      "appStore": "App Store"
+    },
+    "googlePlay": {
+      "getItOn": "Get it on",
+      "googlePlay": "Google Play"
+    },
+    "extension": {
+      "download": "Download",
+      "extension": "Extension"
+    },
+    "copyright": "Copyright © 2025 Bob Store - All rights reserved",
+    "createdBy": "Website created by Sohixe"
+  },
+  "gamePage": {
+    "gameNotFound": "Game Not Found",
+    "gameNotFoundDesc": "The game you're looking for doesn't exist.",
+    "backToHome": "Back to Home",
+    "gameplayPreview": "Gameplay Preview",
+    "servicePreview": "Service Preview",
+    "buyNow": "Buy Now",
+    "howItWorks": "How It Works",
+    "whyChooseBobStore": "Why Choose Bob Store?",
+    "whyChoose": {
+      "officialService": "100% official service: guaranteed top‑ups approved by the game's developers.",
+      "competitivePrices": "Competitive prices: the best value for every purchase tier.",
+      "easyAndFast": "Easy and fast: simple steps starting with entering the player ID.",
+      "fullSecurity": "Full security: complete account protection during payment.",
+      "ongoingSupport": "Ongoing support: a support team available around the clock."
+    },
+    "howToFindUid": "How to Find the UID",
+    "uidInstructions": {
+      "step1": "From inside the game, open the main menu or profile screen.",
+      "step2": "The {gameTitle} UID appears on screen."
+    },
+    "contactUs": "Contact us via WhatsApp, Facebook, or Instagram",
+    "choosePlan": "Choose your desired package",
+    "completePayment": "Complete the payment using your preferred method",
+    "receiveService": "We'll provide you with the service",
+    "enjoyService": "Enjoy your new service!",
+    "stepPatterns": {
+      "receiveAccount": "Receive your account email, password, and account name",
+      "logInAndEnjoy": "Log in and enjoy unlimited streaming content",
+      "accessHDQuality": "Access HD/4K quality and multiple device support!",
+      "provideAccountCredentials": "Provide your {gameTitle} account credentials",
+      "provideUsernamePassword": "Provide your {gameTitle} username and password",
+      "provideUID": "Provide your {gameTitle} UID (User ID)",
+      "chooseRobuxPackage": "Choose your desired Robux package",
+      "chooseGenesisPackage": "Choose your desired Genesis Crystals package",
+      "chooseUCPackage": "Choose your desired UC (Unknown Cash) package",
+      "chooseDiamondPackage": "Choose your desired diamond package",
+      "chooseGemsPackage": "Choose your desired gems package",
+      "chooseVbucksPackage": "Choose your desired V-Bucks package",
+      "chooseNetflixPlan": "Choose your Netflix subscription plan",
+      "chooseXboxPlan": "Choose your Xbox Game Pass plan (1 month, 3 months, or 1 year)",
+      "chooseDiscordPlan": "Choose your Discord Nitro plan (1 month, 3 months, or 1 year)",
+      "chooseSpotifyDuration": "Choose your subscription duration (1 month, 3 months, 6 months, or 1 year)",
+      "rechargeAccountDirectly": "We'll recharge your account directly",
+      "provideActivationCode": "We'll provide you with an activation code or link",
+      "provideOfficialAccount": "We'll provide you with an official {serviceTitle} account",
+      "sendConfirmationCode": "We'll send you a confirmation code via email",
+      "rechargeViaEmail": "We'll recharge your account via {companyName} email",
+      "useCurrencyToBuy": "Use {currency} to buy {items}",
+      "customizeAndEnjoy": "Customize your avatar and enjoy premium features!",
+      "expressCreativity": "Express your creativity with new outfits!",
+      "dominateBattlefield": "Dominate the battlefield with your new heroes!",
+      "redeemCode": "Redeem the code in your {serviceTitle} account"
+    },
+    "topupSteps": "Top‑up Steps",
+    "aboutThisService": "About This Service",
+    "whyChooseOurService": "Why Choose Our Service?",
+    "socialMedia": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "whatsapp": "WhatsApp"
+    },
+    "keyFeatures": "Key Features",
+    "whyChooseOurServiceDesc": "We provide the best digital services with guaranteed quality and fast delivery.",
+    "instantDelivery": {
+      "title": "Instant Delivery",
+      "description": "Get your services delivered within minutes of payment confirmation."
+    },
+    "guaranteed": {
+      "title": "100% Guaranteed",
+      "description": "All our services come with a full guarantee and customer support."
+    },
+    "support24": {
+      "title": "24/7 Support",
+      "description": "Our customer support team is available around the clock to help you."
+    },
+    "gameDescriptions": {
+      "netflix": "Netflix is the world's leading streaming entertainment service with over 200 million paid memberships in over 190 countries enjoying TV series, documentaries and feature films across a wide variety of genres and languages. Members can watch as much as they want, anytime, anywhere, on any internet-connected screen.",
+      "xboxGamePass": "Xbox Game Pass is a subscription service that gives you access to a rotating catalog of over 100 high-quality games. Play new games on day one, including Xbox Game Studios titles. Games are added regularly, so there's always something new to play.",
+      "genshinImpact": "Genshin Impact is an open-world action RPG that takes place in the fantasy world of Teyvat. The game features a massive, gorgeous map, an elaborate elemental combat system, engaging storyline & characters, co-op game mode, soothing soundtrack, and much more for you to explore.",
+      "pubgMobile": "PUBG Mobile is a battle royale game where up to 100 players parachute onto a remote island to battle in a winner-takes-all showdown. Players must locate and scavenge their own weapons, vehicles and supplies, and defeat every player in a graphically and tactically rich battleground that forces players into a shrinking play zone.",
+      "wutheringWaves": "Wuthering Waves is an open-world action RPG that combines stunning visuals with engaging combat mechanics. Players can explore a vast world, collect characters, and experience an immersive storyline filled with adventure and discovery.",
+      "roblox": "Roblox is a platform where millions of people gather together every day to imagine, create, and share experiences with each other in immersive, user-generated 3D worlds. The types of gameplay on Roblox are just as limitless as the imagination of the creators themselves.",
+      "spotify": "Spotify Premium is the ultimate music streaming experience that gives you access to millions of songs, podcasts, and audiobooks. Enjoy ad-free listening, download music for offline playback, and stream in high quality across all your devices.",
+      "discordNitro": "Discord Nitro enhances your Discord experience with premium features including HD video streaming, custom emojis, server boosts, profile badges, and much more. Get the most out of your Discord experience.",
+      "brawlStars": "Brawl Stars is a fast-paced multiplayer battle game where players control unique brawlers in various game modes. Collect and upgrade brawlers, team up with friends, and battle in exciting 3v3 matches or solo showdowns.",
+      "clashOfClans": "Clash of Clans is a strategy game where players build their own village, train troops, and attack other players' villages to earn resources. Join a clan or create your own to participate in epic Clan Wars.",
+      "bloodStrike": "Blood Strike is a mobile battle royale game that offers intense combat and survival gameplay. Players must fight to be the last one standing in fast-paced matches designed specifically for mobile devices.",
+      "infinityNikki": "Infinity Nikki is a fashion and adventure game that combines stunning visuals with creative gameplay. Players can design outfits, explore beautiful worlds, and express their creativity through fashion and adventure.",
+      "freeFire": "Free Fire is a battle royale game designed for mobile devices. With matches lasting only 10 minutes, players can enjoy fast-paced action and intense combat in a mobile-optimized experience.",
+      "fortnite": "Fortnite is a battle royale game that combines shooting mechanics with building elements. Players can build structures to defend themselves or gain tactical advantages, making it unique among battle royale games.",
+      "eFootball": "eFootball is a football simulation video game that offers realistic gameplay with official team and player licenses. Experience the most authentic football gaming experience with stunning graphics and fluid gameplay mechanics."
+    },
+    "gameShortDescriptions": {
+      "netflix": "Premium streaming service with unlimited access to movies, series, and exclusive content. Watch anywhere, anytime.",
+      "xboxGamePass": "Access to over 100 high-quality games with Xbox Game Pass. Play new games on day one, including Xbox Game Studios titles.",
+      "genshinImpact": "Open-world action RPG with stunning visuals and engaging combat. Explore Teyvat and discover amazing adventures.",
+      "pubgMobile": "Ultimate battle royale experience on mobile. 100 players, one winner. Survive and conquer the battlefield.",
+      "wutheringWaves": "Open-world action RPG with stunning visuals and immersive gameplay. Experience the power of waves.",
+      "roblox": "Platform where millions create, share, and play games. Build your own worlds and play with friends.",
+      "spotify": "Ad-free music streaming with offline downloads. Listen to millions of songs, podcasts, and audiobooks.",
+      "discordNitro": "Enhanced Discord experience with premium features. HD streaming, custom emojis, and server boosts.",
+      "brawlStars": "Fast-paced multiplayer battles with unique brawlers. Team up with friends for exciting 3v3 matches.",
+      "clashOfClans": "Build your village, train troops, and attack others. Join epic Clan Wars and dominate the battlefield.",
+      "bloodStrike": "Mobile battle royale with intense combat. Fight to be the last one standing in fast-paced matches.",
+      "infinityNikki": "Fashion and adventure game with creative gameplay. Design outfits and explore beautiful worlds.",
+      "freeFire": "10-minute battle royale matches designed for mobile. Fast-paced action and intense combat.",
+      "fortnite": "Battle royale with building mechanics. Build structures and fight for victory in unique gameplay.",
+      "eFootball": "Realistic football simulation with official licenses. Experience authentic football gaming.",
+      "mobileLegends": "5v5 MOBA with fast-paced battles. Choose your hero and dominate the battlefield.",
+      "discordNitro": "Enhanced Discord experience with premium features. HD streaming, custom emojis, and server boosts."
+    }
+  },
+  "features": {
+    "superFast": "Super fast",
+    "instantDownload": "Instant digital download",
+    "reliableSafe": "Reliable & safe",
+    "overGames": "Over 20,000 games",
+    "customerSupport": "Customer support",
+    "humanSupport": "Human support 24/7",
+    "trustpilot": "Trustpilot",
+    "reviews": "reviews",
+    "whatGamersSay": "WHAT OUR GAMERS SAY",
+    "joinGamers": "JOIN 2M+ HAPPY GAMERS",
+    "gamerReviews": "GAMER REVIEWS"
+  },
+  "gameReviews": {
+    "genshinImpact": {
+      "title": "Genshin Impact",
+      "review": "Amazing open-world RPG with stunning visuals and engaging combat. The gacha system can be expensive but the free content is substantial. Love exploring Teyvat!"
+    },
+    "pubgMobile": {
+      "title": "PUBG Mobile",
+      "review": "Best mobile battle royale game out there! Graphics are incredible and the gameplay is smooth. Perfect for quick matches during breaks."
+    },
+    "wutheringWaves": {
+      "title": "Wuthering Waves",
+      "review": "Incredible action RPG with fluid combat mechanics. The character designs are beautiful and the story is engaging. Highly recommend for anime game fans!"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Download, Shield, Gamepad2, Smartphone, Monitor, Headphones as HeadphonesIcon, X, ZoomIn } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Navigation from '../comps/Navigation';
 import Footer from '../comps/Footer';
 // import LoadingScreen from '../comps/LoadingScreen';
@@ -20,6 +21,7 @@ const getGameplayVideo = (gameId: string): string => {
     'roblox': 'https://www.youtube.com/embed/N1nnCsqS8vg', // Roblox Gameplay
     'free-fire': 'https://www.youtube.com/embed/ODvJ8oTsiMU', // Free Fire Gameplay
     'fortnite': 'https://www.youtube.com/embed/--RA1Wy4rFY', // Fortnite Gameplay
+    'brawl-stars': 'https://www.youtube.com/embed/CaryjOdYFa0', // Brawl Stars Gameplay
   };
   
   // Add subscription videos
@@ -35,26 +37,102 @@ const getGameplayVideo = (gameId: string): string => {
 
 const GamePage: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
+  const { t } = useTranslation();
   // const [isLoading, setIsLoading] = useState(true);
   // const [loadingProgress, setLoadingProgress] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
+  // Helper function to get translated game description
+  const getTranslatedDescription = (gameId: string, fallbackDescription: string): string => {
+    // Convert kebab-case game ID to camelCase for translation key
+    const camelCaseGameId = gameId.replace(/-([a-z])/g, (_match, letter) => letter.toUpperCase());
+    const descriptionKey = `gamePage.gameDescriptions.${camelCaseGameId}`;
+    const translatedDescription = t(descriptionKey);
+    
+    // If translation exists and is different from the key, use it
+    if (translatedDescription !== descriptionKey) {
+      return translatedDescription;
+    }
+    
+    // Otherwise, use the fallback description
+    return fallbackDescription;
+  };
+
+  // Helper function to get translated short description
+  const getTranslatedShortDescription = (gameId: string, fallbackDescription: string): string => {
+    // Convert kebab-case game ID to camelCase for translation key
+    const camelCaseGameId = gameId.replace(/-([a-z])/g, (_match, letter) => letter.toUpperCase());
+    const descriptionKey = `gamePage.gameShortDescriptions.${camelCaseGameId}`;
+    const translatedDescription = t(descriptionKey);
+    
+    // If translation exists and is different from the key, use it
+    if (translatedDescription !== descriptionKey) {
+      return translatedDescription;
+    }
+    
+    // Otherwise, use the fallback description
+    return fallbackDescription;
+  };
+
+  // Helper function to translate howItWorks steps
+  const translateHowItWorks = (steps: string[]): string[] => {
+    return steps.map((step, _index) => {
+      // Replace specific patterns with translations
+      let translatedStep = step
+        // Basic patterns
+        .replace(/Contact us via WhatsApp, Facebook, or Instagram/g, t('gamePage.contactUs'))
+        .replace(/Complete the payment using your preferred method/g, t('gamePage.completePayment'))
+        
+        // Specific account-related patterns
+        .replace(/Receive your account email, password, and account name/g, t('gamePage.stepPatterns.receiveAccount'))
+        .replace(/Log in and enjoy unlimited streaming content/g, t('gamePage.stepPatterns.logInAndEnjoy'))
+        .replace(/Access HD\/4K quality and multiple device support!/g, t('gamePage.stepPatterns.accessHDQuality'))
+        
+        // Game-specific patterns
+        .replace(/Provide your (.+) account credentials/g, (_match, gameName) => t('gamePage.stepPatterns.provideAccountCredentials', { gameTitle: gameName }))
+        .replace(/Provide your (.+) username and password/g, (_match, gameName) => t('gamePage.stepPatterns.provideUsernamePassword', { gameTitle: gameName }))
+        .replace(/Provide your (.+) UID \(User ID\)/g, (_match, gameName) => t('gamePage.stepPatterns.provideUID', { gameTitle: gameName }))
+        .replace(/Provide your (.+) Player Tag/g, (_match, gameName) => t('gamePage.stepPatterns.provideUID', { gameTitle: gameName }))
+        
+        // Package selection patterns
+        .replace(/Choose your desired Robux package/g, t('gamePage.stepPatterns.chooseRobuxPackage'))
+        .replace(/Choose your desired Genesis Crystals package/g, t('gamePage.stepPatterns.chooseGenesisPackage'))
+        .replace(/Choose your desired UC \(Unknown Cash\) package/g, t('gamePage.stepPatterns.chooseUCPackage'))
+        .replace(/Choose your desired diamond package/g, t('gamePage.stepPatterns.chooseDiamondPackage'))
+        .replace(/Choose your desired gems package/g, t('gamePage.stepPatterns.chooseGemsPackage'))
+        .replace(/Choose your desired V-Bucks package/g, t('gamePage.stepPatterns.chooseVbucksPackage'))
+        .replace(/Choose your desired recharge package/g, t('gamePage.choosePlan'))
+        
+        // Service-specific plans
+        .replace(/Choose your Netflix subscription plan/g, t('gamePage.stepPatterns.chooseNetflixPlan'))
+        .replace(/Choose your Xbox Game Pass plan \(1 month, 3 months, or 1 year\)/g, t('gamePage.stepPatterns.chooseXboxPlan'))
+        .replace(/Choose your Discord Nitro plan \(1 month, 3 months, or 1 year\)/g, t('gamePage.stepPatterns.chooseDiscordPlan'))
+        .replace(/Choose your subscription duration \(1 month, 3 months, 6 months, or 1 year\)/g, t('gamePage.stepPatterns.chooseSpotifyDuration'))
+        
+        // Service delivery patterns
+        .replace(/We'll recharge your account directly/g, t('gamePage.stepPatterns.rechargeAccountDirectly'))
+        .replace(/We'll provide you with an activation code or link/g, t('gamePage.stepPatterns.provideActivationCode'))
+        .replace(/We'll provide you with an official (.+) account/g, (_match, serviceName) => t('gamePage.stepPatterns.provideOfficialAccount', { serviceTitle: serviceName }))
+        .replace(/We'll send you a confirmation code via email/g, t('gamePage.stepPatterns.sendConfirmationCode'))
+        .replace(/We'll recharge your account via (.+) email/g, (_match, companyName) => t('gamePage.stepPatterns.rechargeViaEmail', { companyName: companyName }))
+        
+        // Usage patterns
+        .replace(/Use Robux to buy avatar items, game passes, and developer products/g, t('gamePage.stepPatterns.useCurrencyToBuy', { currency: 'Robux', items: 'avatar items, game passes, and developer products' }))
+        .replace(/Use diamonds to buy heroes, skins, and battle passes/g, t('gamePage.stepPatterns.useCurrencyToBuy', { currency: 'diamonds', items: 'heroes, skins, and battle passes' }))
+        
+        // Enjoyment patterns
+        .replace(/Customize your avatar and enjoy premium features!/g, t('gamePage.stepPatterns.customizeAndEnjoy'))
+        .replace(/Express your creativity with new outfits!/g, t('gamePage.stepPatterns.expressCreativity'))
+        .replace(/Dominate the battlefield with your new heroes!/g, t('gamePage.stepPatterns.dominateBattlefield'))
+        .replace(/Redeem the code in your (.+) account/g, (_match, serviceName) => t('gamePage.stepPatterns.redeemCode', { serviceTitle: serviceName }));
+      
+      return translatedStep;
+    });
+  };
+
   // Game data - this should match the data from your main page
   const gameData = useMemo(() => {
     const games = [
-      {
-        id: "netflix",
-        title: "Netflix subscriptions",
-        platform: "Mobile",
-        price: "51.99 €",
-        discount: "-80%",
-        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758903224/ntflix_lvhcie.jpg",
-        bgColor: "bg-red-600",
-        category: "subscriptions",
-        description: "Premium streaming service with unlimited access to movies, TV shows, documentaries, and exclusive Netflix originals. Watch on any device, anywhere.",
-        features: ["Unlimited Streaming", "HD & 4K Quality", "Multiple Devices", "Offline Downloads", "No Ads"],
-        longDescription: "Netflix is the world's leading streaming entertainment service with over 200 million paid memberships in over 190 countries enjoying TV series, documentaries and feature films across a wide variety of genres and languages. Members can watch as much as they want, anytime, anywhere, on any internet-connected screen."
-      },
       {
         id: "xbox-game-pass",
         title: "Xbox game pass subscriptions",
@@ -66,7 +144,16 @@ const GamePage: React.FC = () => {
         category: "subscriptions",
         description: "Access to over 100 high-quality games with Xbox Game Pass. Play new games on day one, including Xbox Game Studios titles.",
         features: ["100+ Games", "Day One Releases", "Xbox Game Studios", "Cloud Gaming", "PC & Console"],
-        longDescription: "Xbox Game Pass is a subscription service that gives you access to a rotating catalog of over 100 high-quality games. Play new games on day one, including Xbox Game Studios titles. Games are added regularly, so there's always something new to play."
+        longDescription: "Xbox Game Pass is a subscription service that gives you access to a rotating catalog of over 100 high-quality games. Play new games on day one, including Xbox Game Studios titles. Games are added regularly, so there's always something new to play.",
+        howItWorks: [
+          "1. Contact us via WhatsApp, Facebook, or Instagram",
+          "2. Choose your Xbox Game Pass plan (1 month, 3 months, or 1 year)",
+          "3. Complete the payment using your preferred method",
+          "4. We'll provide you with an official Xbox Game Pass account",
+          "5. Receive your account email, password, and account name",
+          "6. Log in and enjoy access to 100+ high-quality games",
+          "7. Play new games on day one with Xbox Game Studios titles!"
+        ]
       },
       {
         id: "prime-video",
@@ -80,20 +167,6 @@ const GamePage: React.FC = () => {
         description: "Stream thousands of movies and TV shows, including Amazon Originals, with Prime Video subscription.",
         features: ["Amazon Originals", "Thousands of Movies", "TV Shows", "Multiple Devices", "Offline Viewing"],
         longDescription: "Prime Video is a streaming service that offers a wide variety of award-winning Amazon Originals, plus popular movies and TV shows for everyone in the family to enjoy. Watch anywhere, anytime."
-      },
-      {
-        id: "mobile-legends",
-        title: "Mobile legends",
-        platform: "Mobile",
-        price: "17.99 €",
-        discount: "-40%",
-        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758916664/mlbb-metro_bug3xb.webp",
-        gifUrl: null,
-        bgColor: "bg-orange-500",
-        category: "apps",
-        description: "5v5 MOBA game with fast-paced battles and strategic gameplay. Build your team and dominate the battlefield.",
-        features: ["5v5 MOBA", "Fast Paced", "Strategic Gameplay", "Team Battles", "Regular Updates"],
-        longDescription: "Mobile Legends is a multiplayer online battle arena (MOBA) game designed for mobile phones. The game is free-to-play and is similar to League of Legends. Players can choose from various heroes and battle in 5v5 matches."
       },
       {
         id: "genshin-impact",
@@ -370,6 +443,29 @@ const GamePage: React.FC = () => {
         ]
       },
       {
+        id: "brawl-stars",
+        title: "Brawl Stars",
+        platform: "Mobile",
+        price: "12.99 €",
+        discount: "-25%",
+        image: "https://res.cloudinary.com/dzvgjeddx/image/upload/v1758903177/BRAWL_nubrvo.jpg",
+        bgColor: "bg-yellow-500",
+        category: "apps",
+        description: "Fast-paced multiplayer battle game with unique brawlers and exciting game modes.",
+        features: ["Multiplayer Battles", "Unique Brawlers", "Multiple Game Modes", "Team Play", "Regular Updates"],
+        longDescription: "Brawl Stars is a fast-paced multiplayer battle game where players control unique brawlers in various game modes. Collect and upgrade brawlers, team up with friends, and battle in exciting 3v3 matches or solo showdowns.",
+        videoUrl: "https://www.youtube.com/watch?v=iSGfxbmcj8E&list=PLGtZwVE-T07vYODoUzNweS6upEexk3024",
+        howItWorks: [
+          "1. Contact us via WhatsApp, Facebook, or Instagram",
+          "2. Provide your Brawl Stars Player Tag",
+          "3. Choose your desired gems package",
+          "4. Complete the payment using your preferred method",
+          "5. We'll add gems directly to your account",
+          "6. Use gems to buy brawlers, skins, and other in-game items",
+          "7. Enjoy your new brawlers and cosmetics!"
+        ]
+      },
+      {
         id: "netflix",
         title: "Netflix subscriptions",
         platform: "Mobile",
@@ -430,13 +526,13 @@ const GamePage: React.FC = () => {
         <Navigation />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Game Not Found</h1>
-            <p className="text-gray-400 mb-8">The game you're looking for doesn't exist.</p>
+            <h1 className="text-4xl font-bold mb-4">{t('gamePage.gameNotFound')}</h1>
+            <p className="text-gray-400 mb-8">{t('gamePage.gameNotFoundDesc')}</p>
             <Link 
               to="/" 
               className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
             >
-              Back to Home
+              {t('gamePage.backToHome')}
             </Link>
           </div>
         </div>
@@ -524,7 +620,7 @@ const GamePage: React.FC = () => {
                {(gameData.category !== 'subscriptions' || gameData.id === 'spotify' || gameData.id === 'netflix' || gameData.id === 'xbox-game-pass' || gameData.id === 'discord-nitro') && (
                  <div className="bg-black/30 rounded-xl p-4 mt-4 backdrop-blur-sm border border-gray-700/50 shadow-2xl">
                    <h2 className="text-lg font-bold text-white mb-3 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                     {gameData.category === 'subscriptions' ? 'Service Preview' : 'Gameplay Preview'}
+                     {gameData.category === 'subscriptions' ? t('gamePage.servicePreview') : t('gamePage.gameplayPreview')}
                    </h2>
                    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                      <iframe
@@ -554,7 +650,7 @@ const GamePage: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-gray-300 text-lg leading-relaxed font-medium">{gameData.description}</p>
+              <p className="text-gray-300 text-lg leading-relaxed font-medium">{getTranslatedShortDescription(gameData.id, gameData.description)}</p>
 
               {/* Social Media Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
@@ -595,7 +691,7 @@ const GamePage: React.FC = () => {
 
               {/* Features */}
               <div className="space-y-3">
-                <h3 className="text-lg font-bold text-white mb-3">Key Features</h3>
+                <h3 className="text-lg font-bold text-white mb-3">{t('gamePage.keyFeatures')}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {gameData.features.map((feature, index) => (
                     <div key={index} className="flex items-center space-x-2 bg-black/20 rounded-lg p-2 border border-gray-700/30">
@@ -609,14 +705,14 @@ const GamePage: React.FC = () => {
               {/* Why Choose Bob Store - Only for games */}
               {gameData.howItWorks && (
                 <div className="space-y-4 mb-6">
-                  <h3 className="text-xl font-bold text-white mb-4">Why Choose Bob Store?</h3>
+                  <h3 className="text-xl font-bold text-white mb-4">{t('gamePage.whyChooseBobStore')}</h3>
                   <div className="bg-black/20 rounded-lg p-4 border border-gray-700/50 backdrop-blur-sm">
                     <div className="space-y-3">
                       <div className="flex items-start space-x-3">
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            <span className="font-bold text-white">100% official service:</span> guaranteed top‑ups approved by the game's developers.
+                            <span className="font-bold text-white">100% official service:</span> {t('gamePage.whyChoose.officialService')}
                           </p>
                         </div>
                       </div>
@@ -625,7 +721,7 @@ const GamePage: React.FC = () => {
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            <span className="font-bold text-white">Competitive prices:</span> the best value for every purchase tier.
+                            <span className="font-bold text-white">Competitive prices:</span> {t('gamePage.whyChoose.competitivePrices')}
                           </p>
                         </div>
                       </div>
@@ -634,7 +730,7 @@ const GamePage: React.FC = () => {
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            <span className="font-bold text-white">Easy and fast:</span> simple steps starting with entering the player ID.
+                            <span className="font-bold text-white">Easy and fast:</span> {t('gamePage.whyChoose.easyAndFast')}
                           </p>
                         </div>
                       </div>
@@ -643,7 +739,7 @@ const GamePage: React.FC = () => {
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            <span className="font-bold text-white">Full security:</span> complete account protection during payment.
+                            <span className="font-bold text-white">Full security:</span> {t('gamePage.whyChoose.fullSecurity')}
                           </p>
                         </div>
                       </div>
@@ -652,7 +748,7 @@ const GamePage: React.FC = () => {
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            <span className="font-bold text-white">Ongoing support:</span> a support team available around the clock.
+                            <span className="font-bold text-white">Ongoing support:</span> {t('gamePage.whyChoose.ongoingSupport')}
                           </p>
                         </div>
                       </div>
@@ -664,10 +760,10 @@ const GamePage: React.FC = () => {
               {/* How It Works - Only for games */}
               {gameData.howItWorks && (
                 <div className="space-y-4 mb-6">
-                  <h3 className="text-xl font-bold text-white mb-4">Top‑up Steps</h3>
+                  <h3 className="text-xl font-bold text-white mb-4">{t('gamePage.topupSteps')}</h3>
                   <div className="bg-black/20 rounded-lg p-4 border border-gray-700/50 backdrop-blur-sm">
                     <div className="space-y-3">
-                      {gameData.howItWorks.map((step, index) => (
+                      {translateHowItWorks(gameData.howItWorks).map((step, index) => (
                         <div key={index} className="flex items-start space-x-3">
                           <div className="w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-lg shadow-cyan-500/30">
                             <span className="text-white text-xs font-bold">{index + 1}</span>
@@ -685,14 +781,14 @@ const GamePage: React.FC = () => {
               {/* How to find UID - Only for games that require UID */}
               {(gameData.id === 'genshin-impact' || gameData.id === 'pubg-mobile' || gameData.id === 'free-fire' || gameData.id === 'blood-strike' || gameData.id === 'mobile-legends') && (
                 <div className="space-y-4 mb-6">
-                  <h3 className="text-xl font-bold text-white mb-4">How to Find the UID</h3>
+                  <h3 className="text-xl font-bold text-white mb-4">{t('gamePage.howToFindUid')}</h3>
                   <div className="bg-black/20 rounded-lg p-4 border border-gray-700/50 backdrop-blur-sm">
                     <div className="space-y-3">
                       <div className="flex items-start space-x-3">
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            From inside the game, open the main menu or profile screen.
+                            {t('gamePage.uidInstructions.step1')}
                           </p>
                         </div>
                       </div>
@@ -700,7 +796,7 @@ const GamePage: React.FC = () => {
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-cyan-500/50"></div>
                         <div>
                           <p className="text-gray-200 text-sm leading-relaxed">
-                            The {gameData.title} UID appears on screen.
+                            {t('gamePage.uidInstructions.step2', { gameTitle: gameData.title })}
                           </p>
                         </div>
                       </div>
@@ -714,16 +810,16 @@ const GamePage: React.FC = () => {
 
           {/* Game Description */}
           <div className="bg-black/30 rounded-xl p-6 mb-8 backdrop-blur-sm border border-gray-700/50 shadow-2xl">
-            <h2 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">About This Service</h2>
-            <p className="text-gray-300 leading-relaxed text-lg font-medium">{gameData.longDescription}</p>
+            <h2 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{t('gamePage.aboutThisService')}</h2>
+            <p className="text-gray-300 leading-relaxed text-lg font-medium">{getTranslatedDescription(gameData.id, gameData.longDescription)}</p>
           </div>
 
           {/* Why Choose Our Service Section */}
           <div className="bg-black/20 py-12 sm:py-16 backdrop-blur-sm rounded-xl mb-12 border border-gray-700/30">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-12">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Why Choose Our Service?</h2>
-                <p className="text-gray-400 max-w-2xl mx-auto text-lg px-4 font-medium">We provide the best digital services with guaranteed quality and fast delivery.</p>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{t('gamePage.whyChooseOurService')}</h2>
+                <p className="text-gray-400 max-w-2xl mx-auto text-lg px-4 font-medium">{t('gamePage.whyChooseOurServiceDesc')}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -732,8 +828,8 @@ const GamePage: React.FC = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-red-500/50 group-hover:scale-110 transition-transform duration-300">
                     <Download className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-white">Instant Delivery</h3>
-                  <p className="text-gray-400 text-base leading-relaxed">Get your services delivered within minutes of payment confirmation.</p>
+                  <h3 className="text-xl font-bold mb-4 text-white">{t('gamePage.instantDelivery.title')}</h3>
+                  <p className="text-gray-400 text-base leading-relaxed">{t('gamePage.instantDelivery.description')}</p>
                 </div>
                 
                 {/* 100% Guaranteed */}
@@ -741,8 +837,8 @@ const GamePage: React.FC = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-cyan-500/50 group-hover:scale-110 transition-transform duration-300">
                     <Shield className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-white">100% Guaranteed</h3>
-                  <p className="text-gray-400 text-base leading-relaxed">All our services come with a full guarantee and customer support.</p>
+                  <h3 className="text-xl font-bold mb-4 text-white">{t('gamePage.guaranteed.title')}</h3>
+                  <p className="text-gray-400 text-base leading-relaxed">{t('gamePage.guaranteed.description')}</p>
                 </div>
                 
                 {/* 24/7 Support */}
@@ -750,8 +846,8 @@ const GamePage: React.FC = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-green-500/50 group-hover:scale-110 transition-transform duration-300">
                     <HeadphonesIcon className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-white">24/7 Support</h3>
-                  <p className="text-gray-400 text-base leading-relaxed">Our customer support team is available around the clock to help you.</p>
+                  <h3 className="text-xl font-bold mb-4 text-white">{t('gamePage.support24.title')}</h3>
+                  <p className="text-gray-400 text-base leading-relaxed">{t('gamePage.support24.description')}</p>
                 </div>
               </div>
             </div>
